@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerEdit">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerEdit">
     <children>
         <VBox maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
             <children>
@@ -74,7 +74,7 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <Label text="First - Level :" GridPane.rowIndex="3">
+                        <Label text="Country :" GridPane.rowIndex="3">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -82,7 +82,7 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <Label text="Country :" GridPane.columnIndex="2">
+                        <Label text="State/Province/Region :" GridPane.columnIndex="2">
                             <font>
                                 <Font size="20.0" />
                             </font>

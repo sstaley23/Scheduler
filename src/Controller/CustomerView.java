@@ -44,6 +44,9 @@ public class CustomerView implements Initializable {
     public TableColumn<Customers, String> colCustomerPhone;
 
 
+    /** Method generates customer table view
+      * @param customerList
+     */
     public void generateCustomerTable(ObservableList<Customers> customerList) {
         tableviewCustomers.setItems(customerList);
         colCustomerID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -67,7 +70,7 @@ public class CustomerView implements Initializable {
         stage.show();
     }
 
-    /** Method navigates to the customer add menu
+    /** Method navigates to the customer add form
      * @param actionEvent
      * @throws IOException
      */
@@ -79,6 +82,10 @@ public class CustomerView implements Initializable {
         stage.show();
     }
 
+    /** Method navigates to the customer edit form
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onActionToEditCustomer(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/CustomerEdit.fxml"));
@@ -87,6 +94,10 @@ public class CustomerView implements Initializable {
         stage.show();
     }
 
+    /** Method initializes the class
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

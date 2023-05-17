@@ -8,9 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomersQuery {
+public abstract class CustomersQuery {
 
     private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
+
+
 
     public static ObservableList<Customers> getAllCustomers() throws SQLException {
         allCustomers.clear();
@@ -31,6 +33,8 @@ public class CustomersQuery {
         }
         return allCustomers;
     }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 package Model;
 
+/** Class creates customer objects */
 public class Customers {
 
     private int id;
