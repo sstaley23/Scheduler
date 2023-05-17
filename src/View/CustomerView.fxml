@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerView">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerView">
     <children>
         <VBox maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
             <children>
@@ -70,7 +70,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Button>
-                        <Button layoutX="62.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" text="Delete">
+                        <Button layoutX="62.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDelete" prefHeight="50.0" prefWidth="180.0" text="Delete">
                             <HBox.margin>
                                 <Insets left="50.0" top="10.0" />
                             </HBox.margin>
@@ -95,4 +95,3 @@
         </VBox>
     </children>
 </AnchorPane>
-

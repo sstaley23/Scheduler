@@ -1,19 +1,48 @@
 package Controller;
 
+import Model.Customers;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /** Allows user to edit customers */
 public class CustomerEdit {
+
     Stage stage;
     Parent scene;
 
+    @FXML
+    public TextField txtID;
+    @FXML
+    public TextField txtName;
+    @FXML
+    public TextField txtAddress;
+    @FXML
+    public TextField txtPostal;
+    @FXML
+    public TextField txtPhone;
+    @FXML
+    public ComboBox comboCountry;
+    @FXML
+    public ComboBox comboDivision;
+
+
+    @FXML
+    public void sendCust(Customers customer){
+        txtID.setText(String.valueOf(customer.getId()));
+        txtName.setText(String.valueOf(customer.getName()));
+        txtAddress.setText(String.valueOf(customer.getAddress()));
+        //Stuck here
+        comboDivision.setItems();
+    }
     /** Method navigates back to customer view
      * @param actionEvent
      * @throws IOException

@@ -106,16 +106,16 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField disable="true" minHeight="-Infinity" prefHeight="40.0" text="Auto-Generated " GridPane.columnIndex="1">
+                        <TextField fx:id="txtID" disable="true" minHeight="-Infinity" prefHeight="40.0" text="Auto-Generated " GridPane.columnIndex="1">
                             <font>
                                 <Font size="20.0" />
                             </font></TextField>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <ComboBox minHeight="-Infinity" prefHeight="40.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <ComboBox minHeight="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" />
+                        <TextField fx:id="txtName" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtAddress" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtPostal" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPhone" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="comboCountry" minHeight="-Infinity" prefHeight="40.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="comboDivision" minHeight="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" />
                     </children>
                 </GridPane>
                 <HBox prefHeight="100.0" prefWidth="200.0">

@@ -1,5 +1,6 @@
 package Controller;
 
+import Utilities.CustomersQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -56,12 +58,14 @@ public class MainMenu {
         stage.show();
     }
 
-    public void onActionExit(ActionEvent actionEvent) {
+    public void onActionExit(ActionEvent actionEvent) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.exit(0);
         }
+
     }
+
 }

@@ -87,11 +87,31 @@ public class CustomerView implements Initializable {
      * @throws IOException
      */
     public void onActionToEditCustomer(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/CustomerEdit.fxml"));
-        stage.setTitle("Customer - Edit");
-        stage.setScene(new Scene(scene));
-        stage.show();
+
+        Customers selCust = tableviewCustomers.getSelectionModel().getSelectedItem();
+
+        if (selCust != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/View/CustomerEdit.fxml"));
+            loader.load();
+
+            CustomerEdit MDEditController = loader.getController();
+            MDEditController.sendCust(selCust);
+
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setTitle("Customer - Edit");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+
+    }
+
+    //Need to finish
+    public void onDelete(ActionEvent actionEvent) {
+        Customers customerDelete = tableviewCustomers.getSelectionModel().getSelectedItem();
+
+
     }
 
     /** Method initializes the class
@@ -106,6 +126,7 @@ public class CustomerView implements Initializable {
             throwables.printStackTrace();
         }
     }
+
 
 
 }
