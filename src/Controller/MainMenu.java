@@ -1,6 +1,5 @@
 package Controller;
 
-import Utilities.CustomersQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +10,8 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 /** Main menu that allows navigation to Customers View, Appointment View, and Reprots */
 public class MainMenu {

@@ -1,9 +1,10 @@
 package Controller;
 
+import DAO.CountryDAO;
+import DAO.CustomerDAO;
+import DAO.DivisionDAO;
 import Model.Country;
 import Model.Division;
-import Utilities.CountryAndDivisionQuery;
-import Utilities.CustomersQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Filter;
 
 /** Allows user to add customers */
 public class CustomerAdd implements Initializable {
@@ -86,7 +86,7 @@ public class CustomerAdd implements Initializable {
         }
 
         if (selectionNumber != 0) {
-             for (Division d : CountryAndDivisionQuery.getDivisions()) {
+             for (Division d : DivisionDAO.getAllDivisions()) {
 
                 if (selectionNumber == d.getCountryID()) {
                     Filterdivisions.add(d);
@@ -134,7 +134,7 @@ public class CustomerAdd implements Initializable {
             int divisionID = comboDivision.getValue().getDivisionID();
             emptyFields();
             try {
-                CustomersQuery.addCustomer(name, address, postal, phone, divisionID);
+                CustomerDAO.addCustomer(name, address, postal, phone, divisionID);
                 onActionToCustomerView(actionEvent);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -159,7 +159,7 @@ public class CustomerAdd implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            comboCountry.setItems(CountryAndDivisionQuery.getAllCountries());
+            comboCountry.setItems(CountryDAO.getAllCountries());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,7 +1,7 @@
 package Controller;
 
+import DAO.CustomerDAO;
 import Model.Customers;
-import Utilities.CustomersQuery;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,17 +86,17 @@ public class CustomerView implements Initializable {
      * @param actionEvent
      * @throws IOException
      */
-    public void onActionToEditCustomer(ActionEvent actionEvent) throws IOException {
+    public void onActionToEditCustomer(ActionEvent actionEvent) throws IOException, SQLException {
 
-        Customers selCust = tableviewCustomers.getSelectionModel().getSelectedItem();
+        Customers selCustomer = tableviewCustomers.getSelectionModel().getSelectedItem();
 
-        if (selCust != null) {
+        if (selCustomer != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/View/CustomerEdit.fxml"));
             loader.load();
 
             CustomerEdit MDEditController = loader.getController();
-            MDEditController.sendCust(selCust);
+            MDEditController.sendCustomer(selCustomer);
 
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             Parent scene = loader.getRoot();
@@ -110,8 +110,6 @@ public class CustomerView implements Initializable {
     //Need to finish
     public void onDelete(ActionEvent actionEvent) {
         Customers customerDelete = tableviewCustomers.getSelectionModel().getSelectedItem();
-
-
     }
 
     /** Method initializes the class
@@ -121,7 +119,7 @@ public class CustomerView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            generateCustomerTable(CustomersQuery.getAllCustomers());
+            generateCustomerTable(CustomerDAO.getAllCustomers());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

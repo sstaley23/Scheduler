@@ -1,5 +1,4 @@
-import Utilities.CustomersQuery;
-import Utilities.JDBC;
+import DAO.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

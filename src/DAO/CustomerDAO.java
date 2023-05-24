@@ -1,4 +1,4 @@
-package Utilities;
+package DAO;
 
 import Model.Customers;
 import javafx.collections.FXCollections;
@@ -8,29 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class CustomersQuery {
+public abstract class CustomerDAO {
 
-    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-
-    public static int addCustomer(String name, String address, String postalCode, String phone, int divisionID) throws SQLException {
-        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, name);
-        ps.setString(2, address);
-        ps.setString(3, postalCode);
-        ps.setString(4, phone);
-        ps.setInt(5, divisionID);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
-    public static int deleteCustomer(int customerID) throws SQLException {
-        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, customerID);
-        int rowAffected = ps.executeUpdate();
-        return rowAffected;
-    }
+   public static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
 
     public static ObservableList<Customers> getAllCustomers() throws SQLException {
         allCustomers.clear();
@@ -52,7 +32,23 @@ public abstract class CustomersQuery {
         return allCustomers;
     }
 
+    public static int addCustomer(String name, String address, String postalCode, String phone, int divisionID) throws SQLException {
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setInt(5, divisionID);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
 
-
-
+    public static int deleteCustomer(int customerID) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        int rowAffected = ps.executeUpdate();
+        return rowAffected;
+    }
 }
