@@ -107,7 +107,7 @@ public class CustomerAdd implements Initializable {
         };
     }
 
-    /** Method clears text fields and comboboxes
+    /** Method clears text fields and combo boxes
      * @param actionEvent
      */
     public void onClear(ActionEvent actionEvent) {

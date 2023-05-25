@@ -12,7 +12,7 @@ public class Appointments {
     private String title;
     private String description;
     private String location;
-    private int contactID;
+    private String contactName;
     private String type;
     private LocalDateTime startDateTime;
     private LocalDate startDate;
@@ -23,12 +23,12 @@ public class Appointments {
     private int customerID;
     private int userID;
 
-    public Appointments(int appointmentID, String title, String description, String location, int contactID, String type, LocalDateTime startDateTime, LocalDate startDate, LocalTime startTime, LocalDateTime endDateTime, LocalDate endDate, LocalTime endTime, int customerID, int userID) {
+    public Appointments(int appointmentID, String title, String description, String location, String contactName, String type, LocalDateTime startDateTime, LocalDate startDate, LocalTime startTime, LocalDateTime endDateTime, LocalDate endDate, LocalTime endTime, int customerID, int userID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.contactID = contactID;
+        this.contactName = contactName;
         this.type = type;
         this.startDateTime = startDateTime;
         this.startDate = startDate;
@@ -72,12 +72,12 @@ public class Appointments {
         this.location = location;
     }
 
-    public int getContactID() {
-        return contactID;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
     public String getType() {
