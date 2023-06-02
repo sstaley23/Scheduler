@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentAdd">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentAdd">
     <children>
         <VBox maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
             <children>
@@ -101,12 +101,12 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField disable="true" minHeight="-Infinity" prefHeight="40.0" text="Auto-Generated " GridPane.columnIndex="1">
+                        <TextField fx:id="txtID" disable="true" minHeight="-Infinity" prefHeight="40.0" text="Auto-Generated " GridPane.columnIndex="1">
                             <font>
                                 <Font size="20.0" />
                             </font></TextField>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtTitle" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtDescription" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Contact :" GridPane.rowIndex="4">
                             <font>
                                 <Font size="20.0" />
@@ -115,9 +115,8 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="comboContact" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtLocation" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Type :" GridPane.rowIndex="5">
                             <font>
                                 <Font size="20.0" />
@@ -126,8 +125,8 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <DatePicker minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" />
+                        <TextField fx:id="txtType" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <DatePicker fx:id="dateStart" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" />
                         <Label text="Start Date :" GridPane.columnIndex="2">
                             <font>
                                 <Font size="20.0" />
@@ -136,7 +135,7 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <Label text="User ID :" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <Label text="User :" GridPane.columnIndex="2" GridPane.rowIndex="5">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -144,8 +143,7 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                        <Label text="Customer ID :" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                        <Label text="Customer :" GridPane.columnIndex="2" GridPane.rowIndex="4">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -161,9 +159,11 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <DatePicker minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dateEnd" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="comboStartTime" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="comboEndTime" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="comboCustomerID" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="comboUserID" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                     </children>
                 </GridPane>
                 <HBox prefHeight="100.0" prefWidth="200.0">
@@ -198,4 +198,3 @@
         </VBox>
     </children>
 </AnchorPane>
-

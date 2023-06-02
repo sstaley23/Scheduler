@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentEdit">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentEdit">
     <children>
         <VBox maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
             <children>
@@ -115,7 +115,6 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <Label text="Type :" GridPane.rowIndex="5">
@@ -136,7 +135,7 @@
                                 <Insets left="80.0" />
                             </GridPane.margin>
                         </Label>
-                        <Label text="User ID :" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <Label text="User :" GridPane.columnIndex="2" GridPane.rowIndex="5">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -145,7 +144,7 @@
                             </GridPane.margin>
                         </Label>
                         <TextField minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                        <Label text="Customer ID :" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                        <Label text="Customer :" GridPane.columnIndex="2" GridPane.rowIndex="4">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -164,6 +163,7 @@
                         <DatePicker minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="297.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
                 <HBox prefHeight="100.0" prefWidth="200.0">
