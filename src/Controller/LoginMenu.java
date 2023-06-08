@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -44,10 +43,12 @@ public class LoginMenu implements Initializable {
 
     ResourceBundle rb = ResourceBundle.getBundle("Bundles/Nat_fr", Locale.getDefault());
 
-    /** Method navigates to the Main Menu
-     * @param actionEvent user interaction with the login button
+    /** Method retrieves the username and password. Then calls the checkCredentials method which will either
+     * navigate to the main screen or generate an error (in English or French). Also calls the writeToTXT method.
+     * @param actionEvent
      * @throws IOException
-     * */
+     * @throws SQLException
+     */
     @FXML
     public void onLogin(ActionEvent actionEvent) throws IOException, SQLException {
 
@@ -78,6 +79,12 @@ public class LoginMenu implements Initializable {
         writeToTXT(username, attemptDate, attemptTime, userZone, result);
     }
 
+    /** Method checks for correct login credentials
+     * @param un
+     * @param pass
+     * @return
+     * @throws SQLException
+     */
     public boolean checkCredentials(String un, String pass) throws SQLException {
         boolean verdict = false;
 
@@ -94,6 +101,14 @@ public class LoginMenu implements Initializable {
         return verdict;
     }
 
+    /** Method writes the username, date, time, zone id, and whether the login was successful or failed to a txt file for future evaluation
+     * @param un
+     * @param d
+     * @param t
+     * @param z
+     * @param r
+     * @throws IOException
+     */
     public void writeToTXT(String un, LocalDate d, LocalTime t, ZoneId z, String r) throws IOException {
         String file = "src/login_activity.txt";
         FileWriter fwriter = new FileWriter(file, true);
