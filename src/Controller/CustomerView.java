@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 
 /** Customer view menu. Navigates to Add, Edit, or back to main */
 public class CustomerView implements Initializable {
+
 
     Stage stage;
     Parent scene;
@@ -42,6 +44,8 @@ public class CustomerView implements Initializable {
     public TableColumn<Customers, String> colCustomerPostal;
     @FXML
     public TableColumn<Customers, String> colCustomerPhone;
+    @FXML
+    public Label lblError;
 
 
     /** Method generates customer table view
@@ -103,6 +107,8 @@ public class CustomerView implements Initializable {
             stage.setTitle("Customer - Edit");
             stage.setScene(new Scene(scene));
             stage.show();
+        } else {
+            lblError.setText("Please select customer.");
         }
 
     }

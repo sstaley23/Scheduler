@@ -83,10 +83,13 @@
                         <Insets top="15.0" />
                     </VBox.margin>
                 </HBox>
-                <Label prefHeight="50.0" prefWidth="1260.0" text="&lt;&lt;Error messages&gt;&gt;">
+                <Label fx:id="lblError" prefHeight="50.0" prefWidth="1260.0" textFill="#eb0808">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
                 </Label>
             </children>
             <padding>
