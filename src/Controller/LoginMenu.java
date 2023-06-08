@@ -1,31 +1,120 @@
 package Controller;
 
+import DAO.UsersDAO;
+import Model.Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /** This class allows users with credentials to navigate to the scheduling app */
-public class LoginMenu {
+public class LoginMenu implements Initializable {
 
+    public Label lblZoneID;
+    public TextField txtUserName;
+    public PasswordField txtPassword;
+    public Label lblError;
+    public Label lblScreenName;
+    public Label lblUsername;
+    public Label lblPassword;
+    public Button btnLogin;
+    public Label lblAppName1;
+    public Label lblAppName2;
     Stage stage;
     Parent scene;
+
+    ResourceBundle rb = ResourceBundle.getBundle("Bundles/Nat_fr", Locale.getDefault());
 
     /** Method navigates to the Main Menu
      * @param actionEvent user interaction with the login button
      * @throws IOException
      * */
     @FXML
-    public void onActionMainMenu(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setTitle("Main Menu");
-        stage.setScene(new Scene(scene));
-        stage.show();
+    public void onLogin(ActionEvent actionEvent) throws IOException, SQLException {
+
+        String username = txtUserName.getText();
+        String password = txtPassword.getText();
+        String result;
+        LocalDate attemptDate = LocalDate.now();
+        LocalTime attemptTime = LocalTime.now();
+        ZoneId userZone = ZoneId.systemDefault();
+
+        if(!checkCredentials(username, password)) {
+            lblError.setText("Invalid login");
+            result = "Failed";
+            if (Locale.getDefault().getLanguage().equals("fr")) {
+                lblError.setText((rb.getString("error")));
+
+            }
+        }else {
+            result = "Successful";
+
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setTitle("Main Menu");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+
+        writeToTXT(username, attemptDate, attemptTime, userZone, result);
+    }
+
+    public boolean checkCredentials(String un, String pass) throws SQLException {
+        boolean verdict = false;
+
+        for (Users u : UsersDAO.getAllUsers()) {
+            if(un.equals(u.getUserName())) {
+
+                String userpswd = u.getPassword();
+
+                if(pass.equals(userpswd)) {
+                    verdict = true;
+                }
+            }
+        }
+        return verdict;
+    }
+
+    public void writeToTXT(String un, LocalDate d, LocalTime t, ZoneId z, String r) throws IOException {
+        String file = "src/attempts.txt";
+        FileWriter fwriter = new FileWriter(file, true);
+        PrintWriter outputFile = new PrintWriter(fwriter);
+        outputFile.println(un + " " + d + " " + t + " " + z + " (" + r + ")");
+        outputFile.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblZoneID.setText(String.valueOf(ZoneId.systemDefault()));
+
+
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+
+            lblAppName1.setText(rb.getString("Scheduling"));
+            lblAppName2.setText(rb.getString("Application"));
+            lblScreenName.setText(rb.getString("Login"));
+            lblUsername.setText(rb.getString("Username"));
+            lblPassword.setText(rb.getString("Password"));
+            btnLogin.setText(rb.getString("Login"));
+        }
     }
 }

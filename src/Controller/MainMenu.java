@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-/** Main menu that allows navigation to Customers View, Appointment View, and Reprots */
+/** Main menu that allows navigation to Customers View, Appointment View, and Reports */
 public class MainMenu {
 
     Stage stage;
