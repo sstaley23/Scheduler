@@ -95,7 +95,7 @@ public class LoginMenu implements Initializable {
     }
 
     public void writeToTXT(String un, LocalDate d, LocalTime t, ZoneId z, String r) throws IOException {
-        String file = "src/attempts.txt";
+        String file = "src/login_activity.txt";
         FileWriter fwriter = new FileWriter(file, true);
         PrintWriter outputFile = new PrintWriter(fwriter);
         outputFile.println(un + " " + d + " " + t + " " + z + " (" + r + ")");
