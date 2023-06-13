@@ -4,6 +4,7 @@ import DAO.AppointmentsDAO;
 import Model.Appointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,12 +20,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /** Appointment view class */
 public class AppointmentView implements Initializable {
+
+
 
     Stage stage;
     Parent scene;
@@ -55,8 +57,64 @@ public class AppointmentView implements Initializable {
     public TableColumn<Appointments, Integer> colAllCustomerID;
     @FXML
     public TableColumn<Appointments, Integer> colAllUserID;
+    @FXML
+    public TableView<Appointments> tableviewMOAppointments;
+    @FXML
+    public TableColumn<Appointments, Integer> colMOAppointmentID;
+    @FXML
+    public TableColumn<Appointments, String> colMOTitle;
+    @FXML
+    public TableColumn<Appointments, String> colMODescription;
+    @FXML
+    public TableColumn<Appointments, String> colMOLocation;
+    @FXML
+    public TableColumn<Appointments, String> colMOContact;
+    @FXML
+    public TableColumn<Appointments, String> colMOType;
+    @FXML
+    public TableColumn<Appointments, LocalDate> colMOStartDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> colMOStartTime;
+    @FXML
+    public TableColumn<Appointments, LocalDate> colMOEndDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> colMOEndTime;
+    @FXML
+    public TableColumn<Appointments, Integer> colMOCustomerID;
+    @FXML
+    public TableColumn<Appointments, Integer> colMOUserID;
+
+    @FXML
+    public TableView<Appointments> tableviewWKAppointments;
+    @FXML
+    public TableColumn<Appointments, Integer> colWKAppointmentID;
+    @FXML
+    public TableColumn<Appointments, String> colWKTitle;
+    @FXML
+    public TableColumn<Appointments, String> colWKDescription;
+    @FXML
+    public TableColumn<Appointments, String> colWKLocation;
+    @FXML
+    public TableColumn<Appointments, String> colWKContact;
+    @FXML
+    public TableColumn<Appointments, String> colWKType;
+    @FXML
+    public TableColumn<Appointments, LocalDate> colWKStartDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> colWKStartTime;
+    @FXML
+    public TableColumn<Appointments, LocalDate> colWKEndDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> colWKEndTime;
+    @FXML
+    public TableColumn<Appointments, Integer> colWKCustomerID;
+    @FXML
+    public TableColumn<Appointments, Integer> colWKUserID;
 
 
+    /** Method generates the all appointments table
+     * @param appointmentList
+     */
     public void generateAllAppointmentsTable(ObservableList<Appointments> appointmentList) {
         tableviewAllAppointments.setItems(appointmentList);
         colAllAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
@@ -72,6 +130,8 @@ public class AppointmentView implements Initializable {
         colAllCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         colAllUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
+
+
     /** Method navigates back to the main menu
      * @param actionEvent
      * @throws IOException
@@ -108,6 +168,43 @@ public class AppointmentView implements Initializable {
         stage.show();
     }
 
+    public void onselThisMonth(Event event) throws SQLException {
+
+        ObservableList monthList = AppointmentsDAO.getAppointmentsForMonth(LocalDate.now());
+
+        tableviewMOAppointments.setItems(monthList);
+        colMOAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        colMOTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colMODescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colMOLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        colMOContact.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        colMOType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colMOStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        colMOStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        colMOEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        colMOEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        colMOCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        colMOUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+    }
+
+    public void onselThisWeek(Event event) throws SQLException {
+        ObservableList monthList = AppointmentsDAO.getAppointmentsForWeek(LocalDate.now());
+
+        tableviewWKAppointments.setItems(monthList);
+        colWKAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        colWKTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colWKDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colWKLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        colWKContact.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        colWKType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colWKStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        colWKStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        colWKEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        colWKEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        colWKCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        colWKUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -116,5 +213,7 @@ public class AppointmentView implements Initializable {
             throwables.printStackTrace();
         }
     }
+
+
 }
 

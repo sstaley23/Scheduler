@@ -66,7 +66,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="By Month">
+                        <Tab onSelectionChanged="#onselThisMonth" text="This Month">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -80,9 +80,9 @@
                                     <TableColumn fx:id="colMOType" prefWidth="75.0" text="Type" />
                                     <TableColumn fx:id="colMOStartDate" prefWidth="75.0" text="Start Date" />
                                     <TableColumn fx:id="colMOStartTime" prefWidth="75.0" text="Start Time" />
-                                    <TableColumn fx:id="colMOEndDate1" prefWidth="75.0" text="End Date" />
-                                    <TableColumn fx:id="colMOEndTime1" prefWidth="75.0" text="End Time" />
-                                    <TableColumn fx:id="colMOCustomerID1" prefWidth="75.0" text="Customer ID" />
+                                    <TableColumn fx:id="colMOEndDate" prefWidth="75.0" text="End Date" />
+                                    <TableColumn fx:id="colMOEndTime" prefWidth="75.0" text="End Time" />
+                                    <TableColumn fx:id="colMOCustomerID" prefWidth="75.0" text="Customer ID" />
                                     <TableColumn fx:id="colMOUserID" prefWidth="75.0" text="User ID" />
                                  </columns>
                                  <columnResizePolicy>
@@ -93,7 +93,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="By Week">
+                        <Tab onSelectionChanged="#onselThisWeek" text="This Week">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
