@@ -12,6 +12,10 @@ public abstract class CustomerDAO {
 
    public static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
 
+    /** Generates a list of all customers from database
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Customers> getAllCustomers() throws SQLException {
         allCustomers.clear();
 
@@ -34,6 +38,15 @@ public abstract class CustomerDAO {
         return allCustomers;
     }
 
+    /** Adds new customer to database
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param divisionID
+     * @return
+     * @throws SQLException
+     */
     public static int addCustomer(String name, String address, String postalCode, String phone, int divisionID) throws SQLException {
         String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -46,6 +59,11 @@ public abstract class CustomerDAO {
         return rowsAffected;
     }
 
+    /** Removes customer from database
+     * @param customerID
+     * @return
+     * @throws SQLException
+     */
     public static int deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
