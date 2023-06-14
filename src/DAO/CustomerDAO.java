@@ -71,4 +71,22 @@ public abstract class CustomerDAO {
         int rowAffected = ps.executeUpdate();
         return rowAffected;
     }
+
+    /** Finds customer's id when given a name
+     * @param name
+     * @return
+     * @throws SQLException
+     */
+    public static int findCustID(String name) throws SQLException {
+        int id = -1;
+        ObservableList<Customers> customers = getAllCustomers();
+
+        for(Customers cust : customers){
+            if(name.equals(cust.getName())){
+                id = cust.getId();
+                break;
+            }
+        }
+        return id;
+    }
 }
