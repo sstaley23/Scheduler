@@ -17,6 +17,10 @@ public abstract class AppointmentsDAO {
     public static ObservableList<Appointments> filteredAppointments = FXCollections.observableArrayList();
     public static LocalDate currentDate;
 
+    /** Retrieves all appointments from database
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Appointments> getAllAppointments() throws SQLException {
         allAppointments.clear();
         LocalDateTime startDateTime;
@@ -48,6 +52,11 @@ public abstract class AppointmentsDAO {
         return allAppointments;
     }
 
+    /** Retrieves only appointments for the month
+     * @param date
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Appointments> getAppointmentsForMonth( LocalDate date ) throws SQLException {
         filteredAppointments.clear();
         currentDate = LocalDate.now();
@@ -89,6 +98,11 @@ public abstract class AppointmentsDAO {
         }
     }
 
+    /** Retrieves only appointments for the week
+     * @param date
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Appointments> getAppointmentsForWeek( LocalDate date) throws SQLException {
         filteredAppointments.clear();
         currentDate = LocalDate.now();

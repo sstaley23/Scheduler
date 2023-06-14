@@ -15,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,8 +24,6 @@ import java.util.ResourceBundle;
 
 /** Appointment view class */
 public class AppointmentView implements Initializable {
-
-
 
     Stage stage;
     Parent scene;
@@ -83,7 +80,6 @@ public class AppointmentView implements Initializable {
     public TableColumn<Appointments, Integer> colMOCustomerID;
     @FXML
     public TableColumn<Appointments, Integer> colMOUserID;
-
     @FXML
     public TableView<Appointments> tableviewWKAppointments;
     @FXML
@@ -168,6 +164,10 @@ public class AppointmentView implements Initializable {
         stage.show();
     }
 
+    /** Method generates the appointments for the month when the tab is selected
+     * @param event
+     * @throws SQLException
+     */
     public void onselThisMonth(Event event) throws SQLException {
 
         ObservableList monthList = AppointmentsDAO.getAppointmentsForMonth(LocalDate.now());
@@ -187,6 +187,10 @@ public class AppointmentView implements Initializable {
         colMOUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
+    /** Method generates the appointmetns for the week when the tabe is selected
+     * @param event
+     * @throws SQLException
+     */
     public void onselThisWeek(Event event) throws SQLException {
         ObservableList monthList = AppointmentsDAO.getAppointmentsForWeek(LocalDate.now());
 
