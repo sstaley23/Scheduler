@@ -161,7 +161,7 @@ public abstract class AppointmentsDAO {
      * @throws SQLException
      */
     public static int addAppointment(String tile, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) throws SQLException {
-        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, tile);
         ps.setString(2, description);
