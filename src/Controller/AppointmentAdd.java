@@ -3,9 +3,7 @@ package Controller;
 import DAO.ContactsDAO;
 import DAO.CustomerDAO;
 import DAO.UsersDAO;
-import Model.Contacts;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Utilities.TimeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,6 +71,8 @@ public class AppointmentAdd implements Initializable {
             comboContact.setItems(ContactsDAO.getAllContacts());
             comboCustomerID.setItems(CustomerDAO.getAllCustomers());
             comboUserID.setItems(UsersDAO.getAllUsers());
+            comboStartTime.setItems(TimeManager.genUserBusinessHours());
+            comboEndTime.setItems(TimeManager.genUserBusinessHours());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
