@@ -127,6 +127,7 @@ public class CustomerAdd implements Initializable {
         if(emptyFields()) {
             txtDialogue.setText("Please fill out all fields.");
         } else {
+            txtDialogue.setText("");
             String name = txtName.getText();
             String address = txtAddress.getText();
             String postal = txtPostalCode.getText();
