@@ -3,10 +3,7 @@ package Utilities;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 
 public class TimeManager {
@@ -48,5 +45,27 @@ public class TimeManager {
         return UserBusinessHours;
     }
 
+    /** Combines a date and time to user's zoneddatetime
+     * @param date
+     * @param time
+     * @return
+     */
+    public static ZonedDateTime genZDT(LocalDate date, LocalTime time){
+        ZoneId userZoneID = ZoneId.systemDefault();
+        ZonedDateTime ZDT = ZonedDateTime.of(date, time, userZoneID);
 
+        return ZDT;
+    }
+
+    /** Converts a ZDT to UTC time
+     * @param usersZDT
+     * @return
+     */
+    public static ZonedDateTime convertToUTC(ZonedDateTime usersZDT){
+        ZoneId utcZoneID = ZoneId.of("UTC");
+
+        ZonedDateTime utcZDT = ZonedDateTime.ofInstant(usersZDT.toInstant(), utcZoneID);
+
+        return utcZDT;
+    }
 }
