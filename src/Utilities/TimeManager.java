@@ -57,15 +57,16 @@ public class TimeManager {
         return ZDT;
     }
 
-    /** Converts a ZDT to UTC time
+    /** Converts a ZDT to UTC LDT
      * @param usersZDT
      * @return
      */
-    public static ZonedDateTime convertToUTC(ZonedDateTime usersZDT){
+    public static LocalDateTime convertToUTC(ZonedDateTime usersZDT){
         ZoneId utcZoneID = ZoneId.of("UTC");
 
         ZonedDateTime utcZDT = ZonedDateTime.ofInstant(usersZDT.toInstant(), utcZoneID);
+        LocalDateTime utcLDT = utcZDT.toLocalDateTime();
 
-        return utcZDT;
+        return utcLDT;
     }
 }
