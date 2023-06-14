@@ -11,6 +11,9 @@ import java.util.List;
 
 public class TimeManager {
 
+    /** Generates the business hours in UTC
+     * @return
+     */
     public static List<ZonedDateTime> genUTCBusinessHours() {
         ObservableList<ZonedDateTime> UTCBusinessHours = FXCollections.observableArrayList();
         LocalDate UTCBusinessStartDate = LocalDate.now();
@@ -21,27 +24,29 @@ public class TimeManager {
 
         while(UTCBusinessStart.isBefore(UTCBusinessEnd.plusSeconds(1))){
             UTCBusinessHours.add(UTCBusinessStart);
-            //System.out.println(UTCBusinessStart.toLocalTime() + "[" + UTCZone + "]");
             UTCBusinessStart = UTCBusinessStart.plusMinutes(15);
         }
         return UTCBusinessHours;
     }
 
-    public static ObservableList<ZonedDateTime> genUserBusinessHours() {
+    /** Takes the list from genUTCBusinessHours() method, converts to user ZDT, and returns a list business hours in user's time zone
+     * @return
+     */
+    public static ObservableList<LocalTime> genUserBusinessHours() {
         ObservableList<ZonedDateTime> UTCBusinessHours = (ObservableList<ZonedDateTime>) genUTCBusinessHours();
-        ObservableList<ZonedDateTime> UserBusinessHours = FXCollections.observableArrayList();
+        ObservableList<ZonedDateTime> UserZDT = FXCollections.observableArrayList();
+        ObservableList<LocalTime> UserBusinessHours = FXCollections.observableArrayList();
         ZoneId UserZone = ZoneId.systemDefault();
 
         for(ZonedDateTime utc : UTCBusinessHours){
-            UserBusinessHours.add(ZonedDateTime.ofInstant(utc.toInstant(), UserZone));
+            UserZDT.add(ZonedDateTime.ofInstant(utc.toInstant(), UserZone));
         }
 
-//        for(ZonedDateTime user : UserBusinessHours){
-//            System.out.println(user.toLocalTime() + "[" + UserZone + "]");
-//        }
+        for(ZonedDateTime user : UserZDT) {
+            UserBusinessHours.add(user.toLocalTime());
+        }
         return UserBusinessHours;
     }
-
 
 
 }
