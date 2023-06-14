@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
@@ -144,5 +145,34 @@ public abstract class AppointmentsDAO {
         }
 
 
+    }
+
+    /** Adds appointments to database
+     * @param tile
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customerID
+     * @param userID
+     * @param contactID
+     * @return
+     * @throws SQLException
+     */
+    public static int addAppointment(String tile, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) throws SQLException {
+        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, tile);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
+        ps.setInt(7, customerID);
+        ps.setInt(8, userID);
+        ps.setInt(9, contactID);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
     }
 }
