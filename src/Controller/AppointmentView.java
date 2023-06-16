@@ -10,20 +10,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** Appointment view class */
 public class AppointmentView implements Initializable {
+
 
     Stage stage;
     Parent scene;
@@ -106,6 +107,8 @@ public class AppointmentView implements Initializable {
     public TableColumn<Appointments, Integer> colWKCustomerID;
     @FXML
     public TableColumn<Appointments, Integer> colWKUserID;
+    @FXML
+    public Label txtDialogue;
 
 
     /** Method generates the all appointments table
@@ -187,7 +190,7 @@ public class AppointmentView implements Initializable {
         colMOUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
-    /** Method generates the appointmetns for the week when the tabe is selected
+    /** Method generates the appointments for the week when the tab is selected
      * @param event
      * @throws SQLException
      */
@@ -209,6 +212,64 @@ public class AppointmentView implements Initializable {
         colWKUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
+    /** Method regenerates the all appointments table view
+     * This was created to fix selection issues during delete/edit
+     * @param event
+     * @throws SQLException
+     */
+    public void onselAllAppointments(Event event) throws SQLException {
+        generateAllAppointmentsTable(AppointmentsDAO.getAllAppointments());
+    }
+
+    /** Deletes selected appointment
+     * @param actionEvent
+     * @throws SQLException
+     */
+    public void onDelete(ActionEvent actionEvent) throws SQLException {
+
+        Appointments allDel = tableviewAllAppointments.getSelectionModel().getSelectedItem();
+        Appointments moDel = tableviewMOAppointments.getSelectionModel().getSelectedItem();
+        Appointments wkDel = tableviewWKAppointments.getSelectionModel().getSelectedItem();
+        int id;
+        String type;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
+
+
+        if(allDel != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                if(AppointmentsDAO.deleteAppointment(allDel.getAppointmentID()) != 0){
+                    tableviewAllAppointments.getItems().remove(allDel);
+                    id = allDel.getAppointmentID();
+                    type = allDel.getType();
+                    txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
+                }
+            }
+        } else if(moDel != null) {
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                if(AppointmentsDAO.deleteAppointment(moDel.getAppointmentID()) != 0){
+                    tableviewMOAppointments.getItems().remove(moDel);
+                    id = moDel.getAppointmentID();
+                    type = moDel.getType();
+                    txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
+                }
+            }
+        } else if(wkDel != null){
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                if(AppointmentsDAO.deleteAppointment(wkDel.getAppointmentID()) != 0){
+                    tableviewWKAppointments.getItems().remove(wkDel);
+                    id = wkDel.getAppointmentID();
+                    type = wkDel.getType();
+                    txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
+                }
+            }
+        } else {
+            txtDialogue.setText("Please select an appointment.");
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -217,6 +278,7 @@ public class AppointmentView implements Initializable {
             throwables.printStackTrace();
         }
     }
+
 
 
 }
