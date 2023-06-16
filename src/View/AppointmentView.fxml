@@ -39,7 +39,7 @@
                 </Label>
                 <TabPane minHeight="-Infinity" prefHeight="350.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab text="All Appointments">
+                        <Tab onSelectionChanged="#onselAllAppointments" text="All Appointments">
                             <content>
                                 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="1260.0">
                                     <children>
@@ -143,7 +143,7 @@
                                 <Insets left="50.0" right="50.0" top="10.0" />
                             </HBox.margin>
                         </Button>
-                        <Button layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" text="Delete">
+                        <Button layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDelete" prefHeight="50.0" prefWidth="180.0" text="Delete">
                             <HBox.margin>
                                 <Insets left="50.0" top="10.0" />
                             </HBox.margin>
@@ -156,10 +156,13 @@
                         <Insets top="15.0" />
                     </VBox.margin>
                 </HBox>
-                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1260.0" text="&lt;&lt;Error&gt;&gt;">
+                <Label fx:id="txtDialogue" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1260.0" textFill="#ee0404">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
                 </Label>
             </children>
             <padding>
