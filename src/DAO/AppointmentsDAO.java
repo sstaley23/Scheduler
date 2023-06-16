@@ -175,4 +175,12 @@ public abstract class AppointmentsDAO {
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
+
+    public static int deleteAppointment(int apptID) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, apptID);
+        int rowAffected = ps.executeUpdate();
+        return rowAffected;
+    }
 }
