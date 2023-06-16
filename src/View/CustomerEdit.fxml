@@ -144,7 +144,7 @@
                         <Insets top="50.0" />
                     </VBox.margin>
                 </HBox>
-                <Label fx:id="txtDialogue" text="&lt;Dialogue&gt;">
+                <Label fx:id="txtDialogue" textFill="#f50303">
                     <VBox.margin>
                         <Insets top="50.0" />
                     </VBox.margin>
