@@ -159,6 +159,7 @@ public class CustomerEdit {
         if(emptyFields()) {
             txtDialogue.setText("Please fill out all fields.");
         } else {
+            int id = Integer.parseInt(txtID.getText());
             String name = txtName.getText();
             String address = txtAddress.getText();
             String postal = txtPostal.getText();
@@ -166,7 +167,7 @@ public class CustomerEdit {
             int divisionID = comboDivision.getValue().getDivisionID();
             emptyFields();
             try {
-                CustomerDAO.addCustomer(name, address, postal, phone, divisionID);
+                CustomerDAO.upDateCustomer(id, name, address, postal, phone, divisionID);
                 onActionToCustomerView(actionEvent);
             } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();
