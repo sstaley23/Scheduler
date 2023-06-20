@@ -88,8 +88,6 @@ public class AppointmentAdd implements Initializable {
             String type = txtType.getText();
             LocalDate startDate = dateStart.getValue();
             LocalTime startTime = (LocalTime) comboStartTime.getSelectionModel().getSelectedItem();
-            //Throwing error here
-            //LocalTime startTime = LocalTime.parse(comboStartTime.getSelectionModel().toString());
             LocalDate endDate = dateEnd.getValue();
             LocalTime endTime = (LocalTime) comboEndTime.getSelectionModel().getSelectedItem();
             int customerID = CustomerDAO.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
