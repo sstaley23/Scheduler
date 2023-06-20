@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.AppointmentsDAO;
 import DAO.CustomerDAO;
 import Model.Customers;
 import javafx.collections.ObservableList;
@@ -9,16 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** Customer view menu. Navigates to Add, Edit, or back to main */
@@ -45,7 +44,7 @@ public class CustomerView implements Initializable {
     @FXML
     public TableColumn<Customers, String> colCustomerPhone;
     @FXML
-    public Label lblError;
+    public Label txtDialogue;
 
 
     /** Method generates customer table view
@@ -108,14 +107,46 @@ public class CustomerView implements Initializable {
             stage.setScene(new Scene(scene));
             stage.show();
         } else {
-            lblError.setText("Please select customer.");
+            txtDialogue.setText("Please select customer.");
         }
 
     }
 
-    //Need to finish
-    public void onDelete(ActionEvent actionEvent) {
+    /** Deletes customer from database if no appointmetns exist
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
+    public void onDelete(ActionEvent actionEvent) throws SQLException, IOException {
         Customers customerDelete = tableviewCustomers.getSelectionModel().getSelectedItem();
+        Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
+
+        if(customerDelete != null){
+            int customerID = customerDelete.getId();
+            int numAppointments = AppointmentsDAO.countAppointments(customerID);
+            Optional<ButtonType> result1 = alert1.showAndWait();
+            if(result1.isPresent() && result1.get() == ButtonType.OK){
+                if(numAppointments == 0){
+                    CustomerDAO.deleteCustomer(customerID);
+                    tableviewCustomers.getItems().remove(customerDelete);
+                    txtDialogue.setText("Customer " + customerID + " has been removed.");
+                }else {
+                    Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "This customer has " + numAppointments + " appointments that must be deleted/reassigned first.\n\n" +
+                            "Would you like to navigate to the Appointments Table?");
+                    Optional<ButtonType> result2 = alert2.showAndWait();
+                    if(result2.isPresent() && result2.get() == ButtonType.OK){
+                        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                        scene = FXMLLoader.load(getClass().getResource("/View/AppointmentView.fxml"));
+                        stage.setTitle("Appointments - View");
+                        stage.setScene(new Scene(scene));
+                        stage.show();
+                    }
+                }
+            }
+        } else {
+            txtDialogue.setText("Please select customer.");
+        }
+
     }
 
     /** Method initializes the class
