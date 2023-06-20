@@ -83,7 +83,7 @@
                         <Insets top="15.0" />
                     </VBox.margin>
                 </HBox>
-                <Label fx:id="lblError" prefHeight="50.0" prefWidth="1260.0" textFill="#eb0808">
+                <Label fx:id="txtDialogue" prefHeight="50.0" prefWidth="1260.0" textFill="#eb0808">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
