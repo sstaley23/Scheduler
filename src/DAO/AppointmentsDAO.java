@@ -176,11 +176,32 @@ public abstract class AppointmentsDAO {
         return rowsAffected;
     }
 
+    /** removes appointment from database
+     * @param apptID
+     * @return
+     * @throws SQLException
+     */
     public static int deleteAppointment(int apptID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, apptID);
         int rowAffected = ps.executeUpdate();
         return rowAffected;
+    }
+
+    /** Counts the number of appointments a customer has
+     * @param customerID
+     * @return
+     * @throws SQLException
+     */
+    public static int countAppointments(int customerID) throws SQLException {
+        int count = 0;
+
+        for(Appointments appt : getAllAppointments()){
+            if(appt.getCustomerID() == customerID){
+                count += 1;
+            }
+        }
+        return count;
     }
 }
