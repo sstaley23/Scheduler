@@ -110,6 +110,8 @@ public class AppointmentView implements Initializable {
     @FXML
     public Label txtDialogue;
 
+    int currentView = 0;
+
 
     /** Method generates the all appointments table
      * @param appointmentList
@@ -159,12 +161,34 @@ public class AppointmentView implements Initializable {
      * @param actionEvent
      * @throws IOException
      */
-    public void onActionToEditAppointment(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/AppointmentEdit.fxml"));
-        stage.setTitle("Appointment - Edit");
-        stage.setScene(new Scene(scene));
-        stage.show();
+    public void onActionToEditAppointment(ActionEvent actionEvent) throws IOException, SQLException {
+        Appointments selAppt;
+
+        if(currentView == 2){
+            selAppt = tableviewWKAppointments.getSelectionModel().getSelectedItem();
+        }else if(currentView == 1){
+            selAppt = tableviewMOAppointments.getSelectionModel().getSelectedItem();
+        }else {
+            selAppt = tableviewAllAppointments.getSelectionModel().getSelectedItem();
+        }
+
+        if(selAppt != null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/View/AppointmentEdit.fxml"));
+            loader.load();
+
+            AppointmentEdit MDEditController = loader.getController();
+            MDEditController.sendAppointment(selAppt);
+
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setTitle("Appointment - Edit");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        } else {
+            txtDialogue.setText("Please select appointment.");
+        }
+
     }
 
     /** Method generates the appointments for the month when the tab is selected
@@ -174,6 +198,7 @@ public class AppointmentView implements Initializable {
     public void onselThisMonth(Event event) throws SQLException {
 
         ObservableList monthList = AppointmentsDAO.getAppointmentsForMonth(LocalDate.now());
+        currentView = 1;
 
         tableviewMOAppointments.setItems(monthList);
         colMOAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
@@ -196,6 +221,7 @@ public class AppointmentView implements Initializable {
      */
     public void onselThisWeek(Event event) throws SQLException {
         ObservableList monthList = AppointmentsDAO.getAppointmentsForWeek(LocalDate.now());
+        currentView = 2;
 
         tableviewWKAppointments.setItems(monthList);
         colWKAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
@@ -219,6 +245,7 @@ public class AppointmentView implements Initializable {
      */
     public void onselAllAppointments(Event event) throws SQLException {
         generateAllAppointmentsTable(AppointmentsDAO.getAllAppointments());
+        currentView = 0;
     }
 
     /** Deletes selected appointment
@@ -226,42 +253,33 @@ public class AppointmentView implements Initializable {
      * @throws SQLException
      */
     public void onDelete(ActionEvent actionEvent) throws SQLException {
+        Appointments delAppt;
 
-        Appointments allDel = tableviewAllAppointments.getSelectionModel().getSelectedItem();
-        Appointments moDel = tableviewMOAppointments.getSelectionModel().getSelectedItem();
-        Appointments wkDel = tableviewWKAppointments.getSelectionModel().getSelectedItem();
+        if(currentView == 2){
+            delAppt = tableviewWKAppointments.getSelectionModel().getSelectedItem();
+        }else if(currentView == 1){
+            delAppt = tableviewMOAppointments.getSelectionModel().getSelectedItem();
+        } else {
+            delAppt = tableviewAllAppointments.getSelectionModel().getSelectedItem();
+        }
         int id;
         String type;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
 
 
-        if(allDel != null){
+        if(delAppt != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK){
-                if(AppointmentsDAO.deleteAppointment(allDel.getAppointmentID()) != 0){
-                    tableviewAllAppointments.getItems().remove(allDel);
-                    id = allDel.getAppointmentID();
-                    type = allDel.getType();
-                    txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
-                }
-            }
-        } else if(moDel != null) {
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent() && result.get() == ButtonType.OK){
-                if(AppointmentsDAO.deleteAppointment(moDel.getAppointmentID()) != 0){
-                    tableviewMOAppointments.getItems().remove(moDel);
-                    id = moDel.getAppointmentID();
-                    type = moDel.getType();
-                    txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
-                }
-            }
-        } else if(wkDel != null){
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent() && result.get() == ButtonType.OK){
-                if(AppointmentsDAO.deleteAppointment(wkDel.getAppointmentID()) != 0){
-                    tableviewWKAppointments.getItems().remove(wkDel);
-                    id = wkDel.getAppointmentID();
-                    type = wkDel.getType();
+                if(AppointmentsDAO.deleteAppointment(delAppt.getAppointmentID()) != 0){
+                    if(currentView == 2){
+                        tableviewWKAppointments.getItems().remove(delAppt);
+                    } else if(currentView == 1){
+                        tableviewMOAppointments.getItems().remove(delAppt);
+                    }else {
+                        tableviewAllAppointments.getItems().remove(delAppt);
+                    }
+                                        id = delAppt.getAppointmentID();
+                    type = delAppt.getType();
                     txtDialogue.setText("Appointment ID: " + id + " Type: " + type + " deleted");
                 }
             }
