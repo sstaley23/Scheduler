@@ -139,18 +139,6 @@ public class CustomerEdit {
         };
     }
 
-    /** Method clears text fields and combo boxes
-     * @param actionEvent
-     */
-    public void onClear(ActionEvent actionEvent) {
-        txtName.clear();
-        txtAddress.clear();
-        //below is not working
-        comboCountry.getSelectionModel().clearSelection();
-        comboDivision.getSelectionModel().clearSelection();
-        txtPostal.clear();
-        txtPhone.clear();
-    }
 
     /** Saves updated customer information
      * @param actionEvent
@@ -175,7 +163,7 @@ public class CustomerEdit {
         }
     }
 
-    /** Verifies no emptyfields exist on save
+    /** Verifies no empty fields exist on save
      * @return
      */
     public boolean emptyFields(){
@@ -183,8 +171,8 @@ public class CustomerEdit {
         boolean address = txtAddress.getText().isEmpty();
         boolean postal = txtPostal.getText().isEmpty();
         boolean phone = txtPhone.getText().isEmpty();
-        boolean country = comboCountry.getSelectionModel().isEmpty();
-        boolean division = comboDivision.getSelectionModel().isEmpty();
+        boolean country = comboCountry.getSelectionModel().getSelectedItem().toString().isBlank();
+        boolean division = comboDivision.getSelectionModel().getSelectedItem().toString().isBlank();
 
         return (name || address || postal || phone || country || division);
     }
