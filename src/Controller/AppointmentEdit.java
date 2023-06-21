@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.AppointmentsDAO;
 import DAO.ContactsDAO;
 import DAO.CustomerDAO;
 import DAO.UsersDAO;
@@ -14,21 +15,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.chrono.Chronology;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
 /** Allows user to edit appointments */
 public class AppointmentEdit implements Initializable {
+
 
     Stage stage;
     Parent scene;
@@ -57,12 +58,14 @@ public class AppointmentEdit implements Initializable {
     public ComboBox comboCustomer;
     @FXML
     public ComboBox comboUser;
+    @FXML
+    public Label txtDialogue;
 
     /** Navigates to customer view menu
      * @param actionEvent
      * @throws IOException
      */
-    public void onActionToCustomerView(ActionEvent actionEvent) throws IOException {
+    public void onActionToAppointmentsView(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AppointmentView.fxml"));
         stage.setTitle("Appointments - View");
@@ -112,10 +115,70 @@ public class AppointmentEdit implements Initializable {
 
     }
 
+    public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
+        if (emptyFields()) {
+            txtDialogue.setText("Please fill out all fields.");
+        } else {
+            txtDialogue.setText("");
+            int id = Integer.parseInt(txtApptID.getText());
+            String title = txtApptTitle.getText();
+            String description = txtApptDescription.getText();
+            String location = txtApptLocation.getText();
+            int contactID = ContactsDAO.findContactID(comboContact.getSelectionModel().getSelectedItem().toString());
+            String type = txtApptType.getText();
+            LocalDate startDate = dpStartDate.getValue();
+            LocalTime startTime = (LocalTime) comboStartTime.getSelectionModel().getSelectedItem();
+            LocalDate endDate = dpEndDate.getValue();
+            LocalTime endTime = (LocalTime) comboEndtime.getSelectionModel().getSelectedItem();
+            int customerID = CustomerDAO.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
+            int userID = UsersDAO.findUserID(comboUser.getSelectionModel().getSelectedItem().toString());
+
+            ZonedDateTime startZDT = TimeManager.genZDT(startDate, startTime);
+            ZonedDateTime endZDT = TimeManager.genZDT(endDate, endTime);
+
+            LocalDateTime startUTC = TimeManager.convertToUTC(startZDT);
+            LocalDateTime endUTC = TimeManager.convertToUTC(endZDT);
+
+            AppointmentsDAO.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+            onActionToAppointmentsView(actionEvent);
+        }
+    }
+
+    /** Checks if any of the fields are empty
+     * @return
+     */
+    public boolean emptyFields() {
+        boolean title = txtApptTitle.getText().isEmpty();
+        boolean description = txtApptDescription.getText().isEmpty();
+        boolean location = txtApptLocation.getText().isEmpty();
+        boolean contact = comboContact.getSelectionModel().isEmpty();
+        boolean type = txtApptType.getText().isEmpty();
+        boolean startDate = dpStartDate.getValue() == null;
+        boolean startTime = comboStartTime.getSelectionModel().isEmpty();
+        boolean endDate = dpEndDate.getValue() == null;
+        boolean endTime = comboEndtime.getSelectionModel().isEmpty();
+        boolean customer = comboCustomer.getSelectionModel().isEmpty();
+        boolean user = comboUser.getSelectionModel().isEmpty();
+
+
+        return (title || description || location || contact || type || startDate || startTime || endDate || endTime || customer || user);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comboStartTime.setItems(TimeManager.genUserBusinessHours());
-        comboEndtime.setItems(TimeManager.genUserBusinessHours());
+        try {
+            comboContact.setItems(ContactsDAO.getAllContacts());
+            comboCustomer.setItems(CustomerDAO.getAllCustomers());
+            comboUser.setItems(UsersDAO.getAllUsers());
+            comboStartTime.setItems(TimeManager.genUserBusinessHours());
+            comboEndtime.setItems(TimeManager.genUserBusinessHours());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
     }
+
+
 }
 
