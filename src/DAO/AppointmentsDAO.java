@@ -189,6 +189,23 @@ public abstract class AppointmentsDAO {
         return rowAffected;
     }
 
+    public static int upDateAppointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException {
+        String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, title);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
+        ps.setInt(7, customer);
+        ps.setInt(8, user);
+        ps.setInt(9, contact);
+        ps.setInt(10, id);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
     /** Counts the number of appointments a customer has
      * @param customerID
      * @return
