@@ -189,6 +189,20 @@ public abstract class AppointmentsDB {
         return rowAffected;
     }
 
+    /** Updates an existing appointment in the database
+     * @param id
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customer
+     * @param user
+     * @param contact
+     * @return
+     * @throws SQLException
+     */
     public static int upDateAppointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException {
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
