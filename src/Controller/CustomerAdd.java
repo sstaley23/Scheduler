@@ -1,8 +1,8 @@
 package Controller;
 
-import DAO.CountryDAO;
-import DAO.CustomerDAO;
-import DAO.DivisionDAO;
+import DB.CountryDB;
+import DB.CustomerDB;
+import DB.DivisionDB;
 import Model.Country;
 import Model.Division;
 import javafx.collections.FXCollections;
@@ -86,7 +86,7 @@ public class CustomerAdd implements Initializable {
         }
 
         if (selectionNumber != 0) {
-             for (Division d : DivisionDAO.getAllDivisions()) {
+             for (Division d : DivisionDB.getAllDivisions()) {
 
                 if (selectionNumber == d.getCountryID()) {
                     Filterdivisions.add(d);
@@ -135,7 +135,7 @@ public class CustomerAdd implements Initializable {
             int divisionID = comboDivision.getValue().getDivisionID();
             emptyFields();
             try {
-                CustomerDAO.addCustomer(name, address, postal, phone, divisionID);
+                CustomerDB.addCustomer(name, address, postal, phone, divisionID);
                 onActionToCustomerView(actionEvent);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -160,7 +160,7 @@ public class CustomerAdd implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            comboCountry.setItems(CountryDAO.getAllCountries());
+            comboCountry.setItems(CountryDB.getAllCountries());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Customers;
 import javafx.collections.FXCollections;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class CustomerDAO {
+public abstract class CustomerDB {
 
    public static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
 

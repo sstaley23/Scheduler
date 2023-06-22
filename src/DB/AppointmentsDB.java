@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Appointments;
 import javafx.collections.FXCollections;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 
-public abstract class AppointmentsDAO {
+public abstract class AppointmentsDB {
 
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
     public static ObservableList<Appointments> filteredAppointments = FXCollections.observableArrayList();

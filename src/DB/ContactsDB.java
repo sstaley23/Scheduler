@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Contacts;
 import javafx.collections.FXCollections;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class ContactsDAO {
+public abstract class ContactsDB {
 
     public static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
 
@@ -35,7 +35,7 @@ public abstract class ContactsDAO {
     public static String getContactByID(int i) throws SQLException {
         String foundContact = null;
 
-        for (Contacts c : ContactsDAO.getAllContacts()) {
+        for (Contacts c : ContactsDB.getAllContacts()) {
             if (i == c.getContactID()){
                 foundContact = c.getContactName();
             }

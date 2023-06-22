@@ -1,8 +1,8 @@
 package Controller;
 
-import DAO.CountryDAO;
-import DAO.CustomerDAO;
-import DAO.DivisionDAO;
+import DB.CountryDB;
+import DB.CustomerDB;
+import DB.DivisionDB;
 import Model.Country;
 import Model.Customers;
 import Model.Division;
@@ -65,7 +65,7 @@ public class CustomerEdit {
         txtPhone.setText(String.valueOf(customer.getPhoneNumber()));
 
         Country selCountry = null;
-        for(Country country : CountryDAO.getAllCountries()) {
+        for(Country country : CountryDB.getAllCountries()) {
             if(country.getCountry().equals(selCustomer.getCountry())) {
                 selCountry = country;
             }
@@ -73,7 +73,7 @@ public class CustomerEdit {
         comboCountry.getSelectionModel().select(selCountry);
 
         Division selDivision = null;
-        for(Division division : DivisionDAO.getAllDivisions()) {
+        for(Division division : DivisionDB.getAllDivisions()) {
             if(division.getDivision().equals(selCustomer.getFirstLevel())) {
                 selDivision = division;
             }
@@ -88,7 +88,7 @@ public class CustomerEdit {
      * @throws SQLException
      */
     public void onClickCountry(MouseEvent mouseEvent) throws SQLException {
-        comboCountry.setItems(CountryDAO.getAllCountries());
+        comboCountry.setItems(CountryDB.getAllCountries());
     }
 
     /** Populates the drop down menu with filtered results for the division combo box
@@ -114,7 +114,7 @@ public class CustomerEdit {
         }
 
         if (selectionNumber != 0) {
-            for (Division d : DivisionDAO.getAllDivisions()) {
+            for (Division d : DivisionDB.getAllDivisions()) {
                 if (selectionNumber == d.getCountryID()) {
                     Filterdivisions.add(d);
                 }
@@ -155,7 +155,7 @@ public class CustomerEdit {
             int divisionID = comboDivision.getValue().getDivisionID();
             emptyFields();
             try {
-                CustomerDAO.upDateCustomer(id, name, address, postal, phone, divisionID);
+                CustomerDB.upDateCustomer(id, name, address, postal, phone, divisionID);
                 onActionToCustomerView(actionEvent);
             } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();

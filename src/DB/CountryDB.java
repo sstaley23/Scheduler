@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Country;
 import javafx.collections.FXCollections;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class CountryDAO {
+public abstract class CountryDB {
 
      static ObservableList<Country> allCountries = FXCollections.observableArrayList();
 

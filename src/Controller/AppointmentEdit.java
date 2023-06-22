@@ -1,9 +1,9 @@
 package Controller;
 
-import DAO.AppointmentsDAO;
-import DAO.ContactsDAO;
-import DAO.CustomerDAO;
-import DAO.UsersDAO;
+import DB.AppointmentsDB;
+import DB.ContactsDB;
+import DB.CustomerDB;
+import DB.UsersDB;
 import Model.Appointments;
 import Model.Contacts;
 import Model.Customers;
@@ -90,7 +90,7 @@ public class AppointmentEdit implements Initializable {
         comboEndtime.getSelectionModel().select(selAppointment.getEndTime());
 
         Contacts selContact = null;
-        for(Contacts contact : ContactsDAO.getAllContacts()) {
+        for(Contacts contact : ContactsDB.getAllContacts()) {
             if(contact.getContactName().equals(selAppointment.getContactName())){
                 selContact = contact;
             }
@@ -98,7 +98,7 @@ public class AppointmentEdit implements Initializable {
         comboContact.getSelectionModel().select(selContact);
 
         Customers selCustomer = null;
-        for(Customers customer : CustomerDAO.getAllCustomers()){
+        for(Customers customer : CustomerDB.getAllCustomers()){
             if(customer.getId() == selAppointment.getCustomerID()){
                 selCustomer = customer;
             }
@@ -106,7 +106,7 @@ public class AppointmentEdit implements Initializable {
         comboCustomer.getSelectionModel().select(selCustomer);
 
         Users selUser = null;
-        for(Users user : UsersDAO.getAllUsers()){
+        for(Users user : UsersDB.getAllUsers()){
             if(user.getUserID() == selAppointment.getUserID()){
                 selUser = user;
             }
@@ -124,14 +124,14 @@ public class AppointmentEdit implements Initializable {
             String title = txtApptTitle.getText();
             String description = txtApptDescription.getText();
             String location = txtApptLocation.getText();
-            int contactID = ContactsDAO.findContactID(comboContact.getSelectionModel().getSelectedItem().toString());
+            int contactID = ContactsDB.findContactID(comboContact.getSelectionModel().getSelectedItem().toString());
             String type = txtApptType.getText();
             LocalDate startDate = dpStartDate.getValue();
             LocalTime startTime = (LocalTime) comboStartTime.getSelectionModel().getSelectedItem();
             LocalDate endDate = dpEndDate.getValue();
             LocalTime endTime = (LocalTime) comboEndtime.getSelectionModel().getSelectedItem();
-            int customerID = CustomerDAO.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
-            int userID = UsersDAO.findUserID(comboUser.getSelectionModel().getSelectedItem().toString());
+            int customerID = CustomerDB.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
+            int userID = UsersDB.findUserID(comboUser.getSelectionModel().getSelectedItem().toString());
 
             ZonedDateTime startZDT = TimeManager.genZDT(startDate, startTime);
             ZonedDateTime endZDT = TimeManager.genZDT(endDate, endTime);
@@ -139,7 +139,7 @@ public class AppointmentEdit implements Initializable {
             LocalDateTime startUTC = TimeManager.convertToUTC(startZDT);
             LocalDateTime endUTC = TimeManager.convertToUTC(endZDT);
 
-            AppointmentsDAO.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+            AppointmentsDB.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
             onActionToAppointmentsView(actionEvent);
         }
     }
@@ -167,9 +167,9 @@ public class AppointmentEdit implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            comboContact.setItems(ContactsDAO.getAllContacts());
-            comboCustomer.setItems(CustomerDAO.getAllCustomers());
-            comboUser.setItems(UsersDAO.getAllUsers());
+            comboContact.setItems(ContactsDB.getAllContacts());
+            comboCustomer.setItems(CustomerDB.getAllCustomers());
+            comboUser.setItems(UsersDB.getAllUsers());
             comboStartTime.setItems(TimeManager.genUserBusinessHours());
             comboEndtime.setItems(TimeManager.genUserBusinessHours());
         } catch (SQLException throwables) {

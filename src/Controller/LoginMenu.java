@@ -1,6 +1,6 @@
 package Controller;
 
-import DAO.UsersDAO;
+import DB.UsersDB;
 import Model.Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,32 +51,38 @@ public class LoginMenu implements Initializable {
      */
     @FXML
     public void onLogin(ActionEvent actionEvent) throws IOException, SQLException {
+/* Commented out so i don't have to login everytime */
+//        String username = txtUserName.getText();
+//        String password = txtPassword.getText();
+//        String result;
+//        LocalDate attemptDate = LocalDate.now();
+//        LocalTime attemptTime = LocalTime.now();
+//        ZoneId userZone = ZoneId.systemDefault();
+//
+//        if(!checkCredentials(username, password)) {
+//            lblError.setText("Invalid login");
+//            result = "Failed";
+//            if (Locale.getDefault().getLanguage().equals("fr")) {
+//                lblError.setText((rb.getString("error")));
+//
+//            }
+//        }else {
+//            result = "Successful";
+//
+//            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+//            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+//            stage.setTitle("Main Menu");
+//            stage.setScene(new Scene(scene));
+//            stage.show();
+//        }
+//
+//        writeToTXT(username, attemptDate, attemptTime, userZone, result);
 
-        String username = txtUserName.getText();
-        String password = txtPassword.getText();
-        String result;
-        LocalDate attemptDate = LocalDate.now();
-        LocalTime attemptTime = LocalTime.now();
-        ZoneId userZone = ZoneId.systemDefault();
-
-        if(!checkCredentials(username, password)) {
-            lblError.setText("Invalid login");
-            result = "Failed";
-            if (Locale.getDefault().getLanguage().equals("fr")) {
-                lblError.setText((rb.getString("error")));
-
-            }
-        }else {
-            result = "Successful";
-
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-            stage.setTitle("Main Menu");
-            stage.setScene(new Scene(scene));
-            stage.show();
-        }
-
-        writeToTXT(username, attemptDate, attemptTime, userZone, result);
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+        stage.setTitle("Main Menu");
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     /** Method checks for correct login credentials
@@ -88,7 +94,7 @@ public class LoginMenu implements Initializable {
     public boolean checkCredentials(String un, String pass) throws SQLException {
         boolean verdict = false;
 
-        for (Users u : UsersDAO.getAllUsers()) {
+        for (Users u : UsersDB.getAllUsers()) {
             if(un.equals(u.getUserName())) {
 
                 String userpswd = u.getPassword();

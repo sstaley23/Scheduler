@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Users;
 import javafx.collections.FXCollections;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class UsersDAO {
+public abstract class UsersDB {
 
     public static ObservableList<Users> allUsers = FXCollections.observableArrayList();
 

@@ -1,4 +1,4 @@
-package DAO;
+package DB;
 
 import Model.Division;
 import javafx.collections.FXCollections;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class DivisionDAO {
+public abstract class DivisionDB {
 
     public static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
 

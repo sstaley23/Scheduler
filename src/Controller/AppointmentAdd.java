@@ -1,9 +1,9 @@
 package Controller;
 
-import DAO.AppointmentsDAO;
-import DAO.ContactsDAO;
-import DAO.CustomerDAO;
-import DAO.UsersDAO;
+import DB.AppointmentsDB;
+import DB.ContactsDB;
+import DB.CustomerDB;
+import DB.UsersDB;
 import Utilities.TimeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,14 +84,14 @@ public class AppointmentAdd implements Initializable {
             String title = txtTitle.getText();
             String description = txtDescription.getText();
             String location = txtLocation.getText();
-            int contactID = ContactsDAO.findContactID(comboContact.getSelectionModel().getSelectedItem().toString());
+            int contactID = ContactsDB.findContactID(comboContact.getSelectionModel().getSelectedItem().toString());
             String type = txtType.getText();
             LocalDate startDate = dateStart.getValue();
             LocalTime startTime = (LocalTime) comboStartTime.getSelectionModel().getSelectedItem();
             LocalDate endDate = dateEnd.getValue();
             LocalTime endTime = (LocalTime) comboEndTime.getSelectionModel().getSelectedItem();
-            int customerID = CustomerDAO.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
-            int userID = UsersDAO.findUserID(comboUserID.getSelectionModel().getSelectedItem().toString());
+            int customerID = CustomerDB.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
+            int userID = UsersDB.findUserID(comboUserID.getSelectionModel().getSelectedItem().toString());
 
             ZonedDateTime startZDT = TimeManager.genZDT(startDate, startTime);
             ZonedDateTime endZDT = TimeManager.genZDT(endDate, endTime);
@@ -99,7 +99,7 @@ public class AppointmentAdd implements Initializable {
             LocalDateTime startUTC = TimeManager.convertToUTC(startZDT);
             LocalDateTime endUTC = TimeManager.convertToUTC(endZDT);
 
-            AppointmentsDAO.addAppointment(title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+            AppointmentsDB.addAppointment(title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
             onActionToAppointmentView(actionEvent);
         }
     }
@@ -128,9 +128,9 @@ public class AppointmentAdd implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            comboContact.setItems(ContactsDAO.getAllContacts());
-            comboCustomer.setItems(CustomerDAO.getAllCustomers());
-            comboUserID.setItems(UsersDAO.getAllUsers());
+            comboContact.setItems(ContactsDB.getAllContacts());
+            comboCustomer.setItems(CustomerDB.getAllCustomers());
+            comboUserID.setItems(UsersDB.getAllUsers());
             comboStartTime.setItems(TimeManager.genUserBusinessHours());
             comboEndTime.setItems(TimeManager.genUserBusinessHours());
         } catch (SQLException throwables) {

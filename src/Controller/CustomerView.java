@@ -1,7 +1,7 @@
 package Controller;
 
-import DAO.AppointmentsDAO;
-import DAO.CustomerDAO;
+import DB.AppointmentsDB;
+import DB.CustomerDB;
 import Model.Customers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -123,11 +123,11 @@ public class CustomerView implements Initializable {
 
         if(customerDelete != null){
             int customerID = customerDelete.getId();
-            int numAppointments = AppointmentsDAO.countAppointments(customerID);
+            int numAppointments = AppointmentsDB.countAppointments(customerID);
             Optional<ButtonType> result1 = alert1.showAndWait();
             if(result1.isPresent() && result1.get() == ButtonType.OK){
                 if(numAppointments == 0){
-                    CustomerDAO.deleteCustomer(customerID);
+                    CustomerDB.deleteCustomer(customerID);
                     tableviewCustomers.getItems().remove(customerDelete);
                     txtDialogue.setText("Customer " + customerID + " has been removed.");
                 }else {
@@ -156,7 +156,7 @@ public class CustomerView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            generateCustomerTable(CustomerDAO.getAllCustomers());
+            generateCustomerTable(CustomerDB.getAllCustomers());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

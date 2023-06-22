@@ -1,6 +1,6 @@
 package Controller;
 
-import DAO.AppointmentsDAO;
+import DB.AppointmentsDB;
 import Model.Appointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -197,7 +197,7 @@ public class AppointmentView implements Initializable {
      */
     public void onselThisMonth(Event event) throws SQLException {
 
-        ObservableList monthList = AppointmentsDAO.getAppointmentsForMonth(LocalDate.now());
+        ObservableList monthList = AppointmentsDB.getAppointmentsForMonth(LocalDate.now());
         currentView = 1;
 
         tableviewMOAppointments.setItems(monthList);
@@ -220,7 +220,7 @@ public class AppointmentView implements Initializable {
      * @throws SQLException
      */
     public void onselThisWeek(Event event) throws SQLException {
-        ObservableList monthList = AppointmentsDAO.getAppointmentsForWeek(LocalDate.now());
+        ObservableList monthList = AppointmentsDB.getAppointmentsForWeek(LocalDate.now());
         currentView = 2;
 
         tableviewWKAppointments.setItems(monthList);
@@ -244,7 +244,7 @@ public class AppointmentView implements Initializable {
      * @throws SQLException
      */
     public void onselAllAppointments(Event event) throws SQLException {
-        generateAllAppointmentsTable(AppointmentsDAO.getAllAppointments());
+        generateAllAppointmentsTable(AppointmentsDB.getAllAppointments());
         currentView = 0;
     }
 
@@ -270,7 +270,7 @@ public class AppointmentView implements Initializable {
         if(delAppt != null){
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK){
-                if(AppointmentsDAO.deleteAppointment(delAppt.getAppointmentID()) != 0){
+                if(AppointmentsDB.deleteAppointment(delAppt.getAppointmentID()) != 0){
                     if(currentView == 2){
                         tableviewWKAppointments.getItems().remove(delAppt);
                     } else if(currentView == 1){
@@ -291,7 +291,7 @@ public class AppointmentView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            generateAllAppointmentsTable(AppointmentsDAO.getAllAppointments());
+            generateAllAppointmentsTable(AppointmentsDB.getAllAppointments());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

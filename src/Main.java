@@ -1,4 +1,4 @@
-import DAO.JDBC;
+import DB.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
