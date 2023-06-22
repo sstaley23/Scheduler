@@ -132,7 +132,6 @@ public class AppointmentView implements Initializable {
         colAllUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
-
     /** Method navigates back to the main menu
      * @param actionEvent
      * @throws IOException
