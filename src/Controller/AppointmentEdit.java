@@ -144,8 +144,13 @@ public class AppointmentEdit implements Initializable {
             LocalDateTime startUTC = TimeManager.convertToUTC(startZDT);
             LocalDateTime endUTC = TimeManager.convertToUTC(endZDT);
 
-            AppointmentsDB.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
-            onActionToAppointmentsView(actionEvent);
+            if(!TimeManager.checkOverlap(startUTC, endUTC, customerID)){
+                AppointmentsDB.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+                onActionToAppointmentsView(actionEvent);
+            }else {
+                txtDialogue.setText("Appointment conflict, please select a different time");
+            }
+
         }
     }
 
