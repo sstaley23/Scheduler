@@ -115,6 +115,11 @@ public class AppointmentEdit implements Initializable {
 
     }
 
+    /** Saves updated appointment information
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
         if (emptyFields()) {
             txtDialogue.setText("Please fill out all fields.");
