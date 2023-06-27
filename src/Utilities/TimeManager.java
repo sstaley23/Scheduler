@@ -10,6 +10,9 @@ import java.time.*;
 import java.util.List;
 
 public class TimeManager {
+    /**Variable captures the localDateTime at a successful login
+     */
+    public static LocalDateTime glLogin;
 
     /** Generates the business hours in UTC
      * @return
@@ -48,6 +51,7 @@ public class TimeManager {
         return UserBusinessHours;
     }
 
+    /*Delete if not utilized*/
     /** Combines a date and time to user's zoneddatetime
      * @param date
      * @param time
@@ -60,6 +64,7 @@ public class TimeManager {
         return ZDT;
     }
 
+    /*Delete if not utilized*/
     /** Converts a ZDT to UTC LDT
      * @param usersZDT
      * @return
@@ -103,4 +108,5 @@ public class TimeManager {
         }
         return overlap;
     }
+
 }
