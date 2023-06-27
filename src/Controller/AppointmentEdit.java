@@ -138,11 +138,8 @@ public class AppointmentEdit implements Initializable {
             int customerID = CustomerDB.findCustID(comboCustomer.getSelectionModel().getSelectedItem().toString());
             int userID = UsersDB.findUserID(comboUser.getSelectionModel().getSelectedItem().toString());
 
-            ZonedDateTime startZDT = TimeManager.genZDT(startDate, startTime);
-            ZonedDateTime endZDT = TimeManager.genZDT(endDate, endTime);
-
-            LocalDateTime startUTC = TimeManager.convertToUTC(startZDT);
-            LocalDateTime endUTC = TimeManager.convertToUTC(endZDT);
+            LocalDateTime startUTC = LocalDateTime.of(startDate, startTime);
+            LocalDateTime endUTC = LocalDateTime.of(endDate, endTime);
 
             if(!TimeManager.checkOverlap(startUTC, endUTC, customerID)){
                 AppointmentsDB.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
