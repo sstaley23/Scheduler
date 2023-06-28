@@ -74,30 +74,31 @@ public class MainMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            boolean found = false;
-            for(Appointments appt : AppointmentsDB.getAllAppointments()){
-                if(TimeManager.glLogin.isBefore(appt.getStartDateTime()) && TimeManager.glLogin.isAfter(appt.getStartDateTime().minusMinutes(15))){
-                    found = true;
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Appointment Reminder");
-                    alert.setHeaderText(null);
-                    alert.setContentText("You have an appointment coming up!\nAppointment ID: " + appt.getAppointmentID() + " Date: " + appt.getStartDate() + " Time: " + appt.getStartTime());
-
-                    alert.showAndWait();
-                }
-            }
-
-            if(!found){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Appointment Reminder");
-                alert.setHeaderText(null);
-                alert.setContentText("You have no upcoming appointments");
-            }
-            System.out.println(TimeManager.glLogin);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        /*DELETE Commented out below so that navigation to main menu would stop throwing up errors*/
+//        try {
+//            boolean found = false;
+//            for(Appointments appt : AppointmentsDB.getAllAppointments()){
+//                if(TimeManager.glLogin.isBefore(appt.getStartDateTime()) && TimeManager.glLogin.isAfter(appt.getStartDateTime().minusMinutes(15))){
+//                    found = true;
+//
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Appointment Reminder");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("You have an appointment coming up!\nAppointment ID: " + appt.getAppointmentID() + " Date: " + appt.getStartDate() + " Time: " + appt.getStartTime());
+//
+//                    alert.showAndWait();
+//                }
+//            }
+//
+//            if(!found){
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Appointment Reminder");
+//                alert.setHeaderText(null);
+//                alert.setContentText("You have no upcoming appointments");
+//            }
+//            System.out.println(TimeManager.glLogin);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
     }
 }

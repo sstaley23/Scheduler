@@ -51,6 +51,14 @@ public class LoginMenu implements Initializable {
      */
     @FXML
     public void onLogin(ActionEvent actionEvent) throws IOException, SQLException {
+
+        /*DELETE Below is only for when I want to skip login*/
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+        stage.setTitle("Main Menu");
+        stage.setScene(new Scene(scene));
+        stage.show();
+
 /* DELETE Commented out so i don't have to login everytime */
 //        String username = txtUserName.getText();
 //        String password = txtPassword.getText();
@@ -77,13 +85,6 @@ public class LoginMenu implements Initializable {
 //        }
 //
 //        writeToTXT(username, attemptDate, attemptTime, userZone, result);
-
-        /*DELETE Below is only for when I want to skip login*/
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setTitle("Main Menu");
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 
     /** Method checks for correct login credentials
