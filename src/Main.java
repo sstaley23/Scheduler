@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class Main extends Application {
 
@@ -19,7 +20,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws SQLException {
-
+        /*DELETE below is just for testing translations*/
+        //Locale.setDefault(new Locale("fr"));
         JDBC.openConnection();
         launch(args);
         JDBC.closeConnection();
