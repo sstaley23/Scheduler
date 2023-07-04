@@ -84,4 +84,22 @@ public class TimeManager {
         return overlap;
     }
 
+    /** Method checks if appointment ID exists in a list of customer appointments
+     * @param custID
+     * @param apptID
+     * @return
+     * @throws SQLException
+     */
+    public static boolean checkExist(int custID, int apptID) throws SQLException {
+        boolean exist = false;
+        ObservableList<Appointments> appts = AppointmentsDB.getCustomerAppointments(custID);
+
+        for(Appointments appt : appts){
+            if(apptID == appt.getAppointmentID()){
+                exist = true;
+            }
+        }
+        return exist;
+    }
+
 }
