@@ -1,9 +1,6 @@
 package DB;
 
-import Model.Appointments;
-import Model.Month;
-import Model.MonthType;
-import Model.TypeCount;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -101,5 +98,22 @@ public abstract class ReportsDB {
             }
         }
         return filteredAppointments;
+    }
+
+    /** Generates a list of customers by country
+     * @param country
+     * @return
+     * @throws SQLException
+     */
+    public static ObservableList<Customers> getCustomersbyCountry(String country) throws SQLException {
+        ObservableList<Customers> allCustomers = CustomerDB.getAllCustomers();
+        ObservableList<Customers> filteredCustomers = FXCollections.observableArrayList();
+
+        for(Customers c : allCustomers){
+            if(country.equals(c.getCountry())){
+                filteredCustomers.add(c);
+            }
+        }
+        return filteredCustomers;
     }
 }
