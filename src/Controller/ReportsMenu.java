@@ -28,7 +28,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-/** Controller generates reports for requirement A3f and includes the lambda expressions for requirement B
+/** Controller generates reports <br>
+ * Requirements satisfied in this Controller: A3f, B
  */
 public class ReportsMenu implements Initializable {
 

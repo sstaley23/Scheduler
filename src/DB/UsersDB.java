@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for user related information
+ */
 public abstract class UsersDB {
 
     public static ObservableList<Users> allUsers = FXCollections.observableArrayList();

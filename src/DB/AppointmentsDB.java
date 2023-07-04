@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 
+/** Class provides various methods when dealing with appointments and retrieving appointment related information from the database
+ */
 public abstract class AppointmentsDB {
 
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();

@@ -16,11 +16,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/** Main menu that allows navigation to Customers View, Appointment View, and Reports */
+/** Main menu that allows navigation to Customers View, Appointment View, and Reports <BR>
+ * Requirements satisfied in this Controller: A3e
+ */
 public class MainMenu implements Initializable {
 
     Stage stage;
@@ -74,31 +75,33 @@ public class MainMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*DELETE Commented out below so that navigation to main menu would stop throwing up errors*/
-//        try {
-//            boolean found = false;
-//            for(Appointments appt : AppointmentsDB.getAllAppointments()){
-//                if(TimeManager.glLogin.isBefore(appt.getStartDateTime()) && TimeManager.glLogin.isAfter(appt.getStartDateTime().minusMinutes(15))){
-//                    found = true;
-//
-//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setTitle("Appointment Reminder");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("You have an appointment coming up!\nAppointment ID: " + appt.getAppointmentID() + " Date: " + appt.getStartDate() + " Time: " + appt.getStartTime());
-//
-//                    alert.showAndWait();
-//                }
-//            }
-//
-//            if(!found){
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Appointment Reminder");
-//                alert.setHeaderText(null);
-//                alert.setContentText("You have no upcoming appointments");
-//            }
-//            System.out.println(TimeManager.glLogin);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
+        try {
+            boolean found = false;
+            for(Appointments appt : AppointmentsDB.getAllAppointments()){
+                if(TimeManager.glLogin.isBefore(appt.getStartDateTime()) && TimeManager.glLogin.isAfter(appt.getStartDateTime().minusMinutes(15))){
+                    found = true;
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Appointment Reminder");
+                    alert.setHeaderText(null);
+                    alert.setContentText("You have an appointment coming up!\nAppointment ID: " + appt.getAppointmentID() + " Date: " + appt.getStartDate() + " Time: " + appt.getStartTime());
+
+                    alert.showAndWait();
+                }
+            }
+
+            if(!found){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Appointment Reminder");
+                alert.setHeaderText(null);
+                alert.setContentText("You have no upcoming appointments");
+
+                alert.showAndWait();
+            }
+            System.out.println(TimeManager.glLogin);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

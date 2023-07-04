@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for contact related information
+ */
 public abstract class ContactsDB {
 
     public static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
@@ -31,17 +33,6 @@ public abstract class ContactsDB {
         return  allContacts;
     }
 
-    //Delete this if not utilized
-    public static String getContactByID(int i) throws SQLException {
-        String foundContact = null;
-
-        for (Contacts c : ContactsDB.getAllContacts()) {
-            if (i == c.getContactID()){
-                foundContact = c.getContactName();
-            }
-        }
-        return foundContact;
-    }
 
     /** Finds contact's id when given a name
      * @param name

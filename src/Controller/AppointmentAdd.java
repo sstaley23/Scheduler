@@ -23,7 +23,9 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
-/** Allows user to add appointments */
+/** Allows user to add appointments <br>
+ * Requirements satisfied in this Controller: A3a, A3d
+ * */
 public class AppointmentAdd implements Initializable {
 
     Stage stage;

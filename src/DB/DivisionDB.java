@@ -8,10 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for division related information
+ */
 public abstract class DivisionDB {
 
     public static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
 
+    /** Method retrieves all divitions information from database
+     * @return
+     * @throws SQLException
+     */
     public static  ObservableList<Division> getAllDivisions() throws SQLException {
         allDivisions.clear();
 

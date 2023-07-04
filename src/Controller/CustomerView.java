@@ -20,7 +20,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/** Customer view menu. Navigates to Add, Edit, or back to main */
+/** Customer view menu. Navigates to Add, Edit, or back to main
+ * This controller satisfies some of requirement A2
+ */
 public class CustomerView implements Initializable {
 
 

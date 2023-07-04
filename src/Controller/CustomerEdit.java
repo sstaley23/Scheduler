@@ -23,7 +23,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/** Allows user to edit customers */
+/** Allows user to edit customers <br>
+ * This controller satisfies some of requirement A2
+ */
 public class CustomerEdit {
 
 

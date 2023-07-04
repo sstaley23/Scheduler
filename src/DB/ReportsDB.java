@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for report related information
+ */
 public abstract class ReportsDB {
 
 
@@ -83,7 +85,7 @@ public abstract class ReportsDB {
         return list;
     }
 
-    /** Generates a list of appointments for the Appointments by Contact reprot
+    /** Generates a list of appointments for the Appointments by Contact report
      * @param contact
      * @return
      * @throws SQLException

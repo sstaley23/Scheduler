@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.time.*;
 import java.util.List;
 
+/** Class provides various methods for dealing with time and time conversions
+ */
 public class TimeManager {
     /**Variable captures the localDateTime at a successful login
      */
@@ -49,33 +51,6 @@ public class TimeManager {
             UserBusinessHours.add(user.toLocalTime());
         }
         return UserBusinessHours;
-    }
-
-    /*Delete if not utilized*/
-    /** Combines a date and time to user's zoneddatetime
-     * @param date
-     * @param time
-     * @return
-     */
-    public static ZonedDateTime genZDT(LocalDate date, LocalTime time){
-        ZoneId userZoneID = ZoneId.systemDefault();
-        ZonedDateTime ZDT = ZonedDateTime.of(date, time, userZoneID);
-
-        return ZDT;
-    }
-
-    /*Delete if not utilized*/
-    /** Converts a ZDT to UTC LDT
-     * @param usersZDT
-     * @return
-     */
-    public static LocalDateTime convertToUTC(ZonedDateTime usersZDT){
-        ZoneId utcZoneID = ZoneId.of("UTC");
-
-        ZonedDateTime utcZDT = ZonedDateTime.ofInstant(usersZDT.toInstant(), utcZoneID);
-        LocalDateTime utcLDT = utcZDT.toLocalDateTime();
-
-        return utcLDT;
     }
 
     /** Checks for appointment overlaps and returns true if found

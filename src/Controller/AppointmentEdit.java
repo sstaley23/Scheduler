@@ -27,7 +27,9 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
-/** Allows user to edit appointments */
+/** Allows user to edit appointments <br>
+ * Requirements satisfied in this Controller: A3a, A3d, A3c
+ * */
 public class AppointmentEdit implements Initializable {
 
 

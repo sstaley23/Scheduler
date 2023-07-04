@@ -22,7 +22,9 @@ import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/** Appointment view class */
+/** Appointment view class <br>
+ * * Requirements satisfied in this Controller: A3b
+ * */
 public class AppointmentView implements Initializable {
 
 

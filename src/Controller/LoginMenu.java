@@ -2,6 +2,7 @@ package Controller;
 
 import DB.UsersDB;
 import Model.Users;
+import Utilities.TimeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,12 +21,15 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/** This class allows users with credentials to navigate to the scheduling app */
+/** This controller allows users with credentials to navigate to the scheduling app  <br>
+ * Requirements satisfied in this Controller: A1, C, A3d
+ */
 public class LoginMenu implements Initializable {
 
     public Label lblZoneID;
@@ -52,39 +56,32 @@ public class LoginMenu implements Initializable {
     @FXML
     public void onLogin(ActionEvent actionEvent) throws IOException, SQLException {
 
-        /*DELETE Below is only for when I want to skip login*/
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setTitle("Main Menu");
-        stage.setScene(new Scene(scene));
-        stage.show();
+        String username = txtUserName.getText();
+        String password = txtPassword.getText();
+        String result;
+        LocalDate attemptDate = LocalDate.now();
+        LocalTime attemptTime = LocalTime.now();
+        ZoneId userZone = ZoneId.systemDefault();
 
-/* DELETE Commented out so i don't have to login everytime */
-//        String username = txtUserName.getText();
-//        String password = txtPassword.getText();
-//        String result;
-//        LocalDate attemptDate = LocalDate.now();
-//        LocalTime attemptTime = LocalTime.now();
-//        ZoneId userZone = ZoneId.systemDefault();
-//
-//        if(!checkCredentials(username, password)) {
-//            lblError.setText("Invalid login");
-//            result = "Failed";
-//            if (Locale.getDefault().getLanguage().equals("fr")) {
-//                lblError.setText((rb.getString("error")));
-//
-//            }
-//        }else {
-//            result = "Successful";
-//
-//            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-//            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-//            stage.setTitle("Main Menu");
-//            stage.setScene(new Scene(scene));
-//            stage.show();
-//        }
-//
-//        writeToTXT(username, attemptDate, attemptTime, userZone, result);
+        if(!checkCredentials(username, password)) {
+            lblError.setText("Invalid login");
+            result = "Failed";
+            if (Locale.getDefault().getLanguage().equals("fr")) {
+                lblError.setText((rb.getString("error")));
+
+            }
+        }else {
+            result = "Successful";
+            LocalDateTime now = LocalDateTime.now();
+            TimeManager.glLogin = now;
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setTitle("Main Menu");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+
+        writeToTXT(username, attemptDate, attemptTime, userZone, result);
     }
 
     /** Method checks for correct login credentials
@@ -128,7 +125,6 @@ public class LoginMenu implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblZoneID.setText(String.valueOf(ZoneId.systemDefault()));
-
 
         if (Locale.getDefault().getLanguage().equals("fr")) {
 

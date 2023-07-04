@@ -8,10 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for country related information
+ */
 public abstract class CountryDB {
 
-     static ObservableList<Country> allCountries = FXCollections.observableArrayList();
+    static ObservableList<Country> allCountries = FXCollections.observableArrayList();
 
+    /** Method retrieves country data from database
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<Country> getAllCountries() throws SQLException {
         allCountries.clear();
 

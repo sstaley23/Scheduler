@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class provides various methods and data retrieval for customer related information
+ */
 public abstract class CustomerDB {
 
    public static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();

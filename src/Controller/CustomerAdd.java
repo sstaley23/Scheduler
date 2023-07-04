@@ -22,7 +22,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-/** Allows user to add customers */
+/** Allows user to add customers <br>
+ * This controller satisfies some of requirement A2
+ */
 public class CustomerAdd implements Initializable {
 
 
