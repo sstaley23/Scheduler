@@ -48,16 +48,17 @@
                            <children>
                               <VBox prefHeight="595.0" prefWidth="1280.0">
                                  <children>
-                                    <Label text="Appointment Type Count">
+                                    <Label text="Number of Appointments by Type">
                                        <font>
                                           <Font size="30.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="465.0" top="10.0" />
+                                          <Insets left="415.0" top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                     <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0">
                                        <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,7 +76,7 @@
                                                 <Insets left="45.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <ComboBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="165.0" GridPane.columnIndex="3" />
+                                          <ComboBox fx:id="atcComboMonth" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#onClickMonth" prefHeight="30.0" prefWidth="130.0" GridPane.columnIndex="3" />
                                           <Label text="Month :" GridPane.columnIndex="2">
                                              <font>
                                                 <Font size="20.0" />
@@ -84,16 +85,24 @@
                                                 <Insets left="54.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <ComboBox fx:id="atcComboYear" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="165.0" GridPane.columnIndex="1" />
+                                          <ComboBox fx:id="atcComboYear" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="130.0" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#atcOnSelect" text="Select" GridPane.columnIndex="4">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets left="30.0" />
+                                             </GridPane.margin>
+                                          </Button>
                                        </children>
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="315.0" top="10.0" />
                                        </VBox.margin>
                                     </GridPane>
-                                    <TableView maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="320.0">
+                                    <TableView fx:id="atcTableView" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="320.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Type" />
-                                        <TableColumn prefWidth="75.0" text="Count" />
+                                        <TableColumn fx:id="atcColType" prefWidth="75.0" text="Type" />
+                                        <TableColumn fx:id="atcColCount" prefWidth="75.0" text="Count" />
                                       </columns>
                                        <VBox.margin>
                                           <Insets left="480.0" />
@@ -102,6 +111,14 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
+                                    <Label fx:id="txtDialogue" textFill="#f50000">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="10.0" top="15.0" />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                               </VBox>
                            </children>
