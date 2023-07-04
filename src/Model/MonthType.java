@@ -1,13 +1,13 @@
 package Model;
 
-public class repMonthType {
+public class MonthType {
 
     private String year;
     private String month;
     private String type;
     private int count;
 
-    public repMonthType(String year, String month, String type, int count) {
+    public MonthType(String year, String month, String type, int count) {
         this.year = year;
         this.month = month;
         this.type = type;
