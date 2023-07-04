@@ -1,11 +1,14 @@
 package Controller;
 
+import DB.ContactsDB;
 import DB.ReportsDB;
+import Model.Appointments;
 import Model.MonthType;
 import Model.TypeCount;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +22,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ReportsMenu implements Initializable {
@@ -31,7 +36,7 @@ public class ReportsMenu implements Initializable {
     @FXML
     public ComboBox atcComboYear;
     @FXML
-    public Label txtDialogue;
+    public Label atcTxtDialogue;
     @FXML
     public ComboBox atcComboMonth;
     @FXML
@@ -40,8 +45,32 @@ public class ReportsMenu implements Initializable {
     public TableColumn<TypeCount, String> atcColType;
     @FXML
     public TableColumn<TypeCount, Integer> atcColCount;
+    @FXML
+    public TableView<Appointments> abcTableView;
+    @FXML
+    public TableColumn<Appointments, Integer> abcColApptID;
+    @FXML
+    public TableColumn<Appointments, String> abcColTitle;
+    @FXML
+    public TableColumn<Appointments, String> abcColType;
+    @FXML
+    public TableColumn<Appointments, String> abcColDescription;
+    @FXML
+    public TableColumn<Appointments, LocalDate> abcColStartDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> abcColStartTime;
+    @FXML
+    public TableColumn<Appointments, LocalDate> abcColEndDate;
+    @FXML
+    public TableColumn<Appointments, LocalTime> abcColEndTime;
+    @FXML
+    public TableColumn<Appointments, Integer> abcColCustomerID;
+    @FXML
+    public ComboBox abcContactCombo;
+    @FXML
+    public Label abcTxtDialogue;
 
-
+/*--- Navigation ---*/
     /**Navigates back to the main menu
      * @param actionEvent
      * @throws IOException
@@ -52,6 +81,19 @@ public class ReportsMenu implements Initializable {
         stage.setTitle("Main Menu");
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+/*--- ATC Tab specific ---*/
+
+    /** Clears combos and tables when navigating back to the tabe
+     * @param event
+     * @throws SQLException
+     */
+    public void onTabATC(Event event) throws SQLException {
+        atcTableView.getItems().clear();
+        atcComboYear.getSelectionModel().clearSelection();
+        atcComboMonth.getSelectionModel().clearSelection();
+        atcComboYear.setItems(genyear());
     }
 
     /**Generate a list of years found in database
@@ -75,7 +117,7 @@ public class ReportsMenu implements Initializable {
      */
     public void onClickMonth(MouseEvent mouseEvent) throws SQLException {
         if(atcComboYear.getSelectionModel().isEmpty()){
-            txtDialogue.setText("Please select a year first...");
+            atcTxtDialogue.setText("Please select a year first...");
         }else{
             String year = atcComboYear.getValue().toString();
             atcComboMonth.setItems(ReportsDB.getMonthsForYear(year));
@@ -100,14 +142,61 @@ public class ReportsMenu implements Initializable {
         Boolean ifMonth = atcComboMonth.getSelectionModel().isEmpty();
 
         if(ifYear || ifMonth){
-            txtDialogue.setText("Please select values.");
+            atcTxtDialogue.setText("Please select values.");
         }else {
-            txtDialogue.setText("");
+            atcTxtDialogue.setText("");
 
             String year = atcComboYear.getValue().toString();
             String month = atcComboMonth.getValue().toString();
 
             genATCTable(ReportsDB.filteredMonthTypeAppts(year, month));
+        }
+    }
+
+/*--- ABC Tab Specific ---*/
+
+    /** Clear combo/tableview when navigating back to ABC Tab and generates the combo with data
+     * @param event
+     * @throws SQLException
+     */
+    public void onTabABC(Event event) throws SQLException {
+        abcTableView.getItems().clear();
+        abcContactCombo.getSelectionModel().clearSelection();
+        abcContactCombo.setItems(ContactsDB.getAllContacts());
+    }
+
+    /**Generates the Appointments by Contact table
+     * @param list
+     */
+    public void genABCTable(ObservableList<Appointments> list){
+        abcTableView.setItems(list);
+        abcColApptID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        abcColTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        abcColDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        abcColType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        abcColStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        abcColStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        abcColEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        abcColEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        abcColCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+    }
+
+    /**Calls genABCTable if contact combo is not empty
+     * @param actionEvent
+     * @throws SQLException
+     */
+    public void abcOnSelect(ActionEvent actionEvent) throws SQLException {
+        Boolean ifContact = abcContactCombo.getSelectionModel().isEmpty();
+
+        if(ifContact){
+            abcTxtDialogue.setText("Please select a contact.");
+        } else {
+            abcTxtDialogue.setText("");
+
+            String contact = abcContactCombo.getValue().toString();
+            genABCTable(ReportsDB.getContactAppointments(contact));
+
+
         }
     }
 
@@ -119,5 +208,7 @@ public class ReportsMenu implements Initializable {
             throwables.printStackTrace();
         }
     }
+
+
 
 }
