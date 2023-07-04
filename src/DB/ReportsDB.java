@@ -1,5 +1,6 @@
 package DB;
 
+import Model.Appointments;
 import Model.Month;
 import Model.MonthType;
 import Model.TypeCount;
@@ -85,4 +86,20 @@ public abstract class ReportsDB {
         return list;
     }
 
+    /** Generates a list of appointments for the Appointments by Contact reprot
+     * @param contact
+     * @return
+     * @throws SQLException
+     */
+    public static ObservableList<Appointments> getContactAppointments(String contact) throws SQLException {
+        ObservableList<Appointments> allAppointments = AppointmentsDB.getAllAppointments();
+        ObservableList<Appointments> filteredAppointments = FXCollections.observableArrayList();
+
+        for(Appointments a : allAppointments){
+            if(contact.equals(a.getContactName())){
+                filteredAppointments.add(a);
+            }
+        }
+        return filteredAppointments;
+    }
 }
