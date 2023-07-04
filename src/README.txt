@@ -14,7 +14,7 @@ JDK: 11.0.11
 JAVAFX:openjfx-11.0.2_windows-x64_bin-sdk
 
 DIRECTIONS:
-Once program is launched
+Once program is launched, login with test/test or admin/admin credentials. Acknowledge upcoming appointments dialoge. Navigate to desired views/forms.
 
 ADDITIONAL REPORT: Created report that provides a list of customers and their contact information filtered by country
 
