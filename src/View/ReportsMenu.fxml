@@ -139,9 +139,8 @@
                                           <Insets left="465.0" top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="499.0">
+                                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="332.0">
                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
@@ -158,17 +157,9 @@
                                              </GridPane.margin>
                                           </Label>
                                           <ComboBox fx:id="abcContactCombo" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="165.0" GridPane.columnIndex="1" />
-                                          <Button mnemonicParsing="false" onAction="#abcOnSelect" text="Select" GridPane.columnIndex="2">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <GridPane.margin>
-                                                <Insets left="50.0" />
-                                             </GridPane.margin>
-                                          </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets bottom="10.0" left="380.0" top="10.0" />
+                                          <Insets bottom="10.0" left="468.0" top="10.0" />
                                        </VBox.margin>
                                     </GridPane>
                                     <TableView fx:id="abcTableView" minWidth="-Infinity" prefHeight="386.0" prefWidth="1280.0">
