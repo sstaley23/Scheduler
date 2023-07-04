@@ -127,7 +127,7 @@ public class AppointmentEdit implements Initializable {
             txtDialogue.setText("Please fill out all fields.");
         } else {
             txtDialogue.setText("");
-            int id = Integer.parseInt(txtApptID.getText());
+            int apptID = Integer.parseInt(txtApptID.getText());
             String title = txtApptTitle.getText();
             String description = txtApptDescription.getText();
             String location = txtApptLocation.getText();
@@ -143,11 +143,16 @@ public class AppointmentEdit implements Initializable {
             LocalDateTime startUTC = LocalDateTime.of(startDate, startTime);
             LocalDateTime endUTC = LocalDateTime.of(endDate, endTime);
 
-            if(!TimeManager.checkOverlap(startUTC, endUTC, customerID)){
-                AppointmentsDB.upDateAppointment(id, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+            if(TimeManager.checkExist(customerID, apptID)){
+                AppointmentsDB.upDateAppointment(apptID, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
                 onActionToAppointmentsView(actionEvent);
             }else {
-                txtDialogue.setText("Appointment conflict, please select a different time");
+                if(!TimeManager.checkOverlap(startUTC, endUTC, customerID)){
+                    AppointmentsDB.upDateAppointment(apptID, title, description, location, type, startUTC, endUTC, customerID, userID, contactID);
+                    onActionToAppointmentsView(actionEvent);
+                }else {
+                    txtDialogue.setText("Appointment conflict, please select a different time");
+                }
             }
 
         }
