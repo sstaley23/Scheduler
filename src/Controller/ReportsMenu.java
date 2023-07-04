@@ -28,6 +28,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+/** Controller generates reports for requirement A3f and includes the lambda expressions for requirement B
+ */
 public class ReportsMenu implements Initializable {
 
     Stage stage;
@@ -136,9 +138,6 @@ public class ReportsMenu implements Initializable {
     public void onClickMonth(MouseEvent mouseEvent) throws SQLException {
         if(atcComboYear.getSelectionModel().isEmpty()){
             atcTxtDialogue.setText("Please select a year first...");
-        }else{
-            String year = atcComboYear.getValue().toString();
-            atcComboMonth.setItems(ReportsDB.getMonthsForYear(year));
         }
     }
 
@@ -199,24 +198,7 @@ public class ReportsMenu implements Initializable {
         abcColCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
-    /**Calls genABCTable if contact combo is not empty
-     * @param actionEvent
-     * @throws SQLException
-     */
-    public void abcOnSelect(ActionEvent actionEvent) throws SQLException {
-        Boolean ifContact = abcContactCombo.getSelectionModel().isEmpty();
-
-        if(ifContact){
-            abcTxtDialogue.setText("Please select a contact.");
-        } else {
-            abcTxtDialogue.setText("");
-
-            String contact = abcContactCombo.getValue().toString();
-            genABCTable(ReportsDB.getContactAppointments(contact));
-        }
-    }
-
-/*--- CBC Tab Specific ---*/
+    /*--- CBC Tab Specific ---*/
 
     /** Clear combo/tableview when navigating back to CBC tabd and generates combo with data
      * @param event
@@ -258,6 +240,16 @@ public class ReportsMenu implements Initializable {
         }
     }
 
+    /** Below initializes the atcComboYear when loading the default, provides a Lambda Expression (Lamda ATC) for generating the atcMonthCombo ,and provides a Lambda Expression (Lamda ABC) for the abcContact Combo <br>
+     * <br>
+     * Lambda ATC was chosen to clean up the code for the generation of the atcMonthCombo based off the selection of the atcYearCombo
+     *  This action allowed for more stream lined code for the onClickMonth method. <br>
+     * <br>
+     * Lambda ABC allowed for a cleaner UI and code by removing the need of a "Select" button and onSelect method.
+     *  With this action, the table view automatically generates when a contact is selected
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -265,8 +257,36 @@ public class ReportsMenu implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
 
+        /*Lambda ATC*/
+        atcComboYear.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue != null){
+                atcTxtDialogue.setText("");
+
+                String year = atcComboYear.getValue().toString();
+                try {
+                    atcComboMonth.setItems(ReportsDB.getMonthsForYear(year));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        /*Lambda ABC*/
+        abcContactCombo.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue != null){
+                abcTxtDialogue.setText("");
+
+                String contact = abcContactCombo.getValue().toString();
+                try {
+                    genABCTable(ReportsDB.getContactAppointments(contact));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+    }
 
 
 }
