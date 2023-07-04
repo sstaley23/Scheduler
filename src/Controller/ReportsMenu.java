@@ -1,8 +1,10 @@
 package Controller;
 
 import DB.ContactsDB;
+import DB.CountryDB;
 import DB.ReportsDB;
 import Model.Appointments;
+import Model.Customers;
 import Model.MonthType;
 import Model.TypeCount;
 import javafx.collections.FXCollections;
@@ -27,8 +29,6 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ReportsMenu implements Initializable {
-
-
 
     Stage stage;
     Parent scene;
@@ -69,6 +69,24 @@ public class ReportsMenu implements Initializable {
     public ComboBox abcContactCombo;
     @FXML
     public Label abcTxtDialogue;
+    @FXML
+    public ComboBox cbcComboCountry;
+    @FXML
+    public TableView<Customers> cbcTableView;
+    @FXML
+    public TableColumn<Customers, Integer> cbcColCustomerID;
+    @FXML
+    public TableColumn<Customers, String> cbcColCustomerName;
+    @FXML
+    public TableColumn<Customers, String> cbcColAddress;
+    @FXML
+    public TableColumn<Customers, String> cbcColPostalCode;
+    @FXML
+    public TableColumn<Customers, String> cbcColPhone;
+    @FXML
+    public TableColumn<Customers, String> cbcColDivision;
+    @FXML
+    public Label cbcTxtDialogue;
 
 /*--- Navigation ---*/
     /**Navigates back to the main menu
@@ -195,8 +213,48 @@ public class ReportsMenu implements Initializable {
 
             String contact = abcContactCombo.getValue().toString();
             genABCTable(ReportsDB.getContactAppointments(contact));
+        }
+    }
 
+/*--- CBC Tab Specific ---*/
 
+    /** Clear combo/tableview when navigating back to CBC tabd and generates combo with data
+     * @param event
+     * @throws SQLException
+     */
+    public void onTabCBC(Event event) throws SQLException {
+        cbcTableView.getItems().clear();
+        cbcComboCountry.getSelectionModel().clearSelection();
+        cbcComboCountry.setItems(CountryDB.getAllCountries());
+    }
+
+    /**Generates the Customers by country table
+     * @param list
+     */
+    public void genCBCTable(ObservableList<Customers> list){
+        cbcTableView.setItems(list);
+        cbcColCustomerID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        cbcColCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cbcColAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        cbcColPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        cbcColPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        cbcColDivision.setCellValueFactory(new PropertyValueFactory<>("firstLevel"));
+    }
+
+    /**Calls genCBCTable if country combo is not empty
+     * @param actionEvent
+     * @throws SQLException
+     */
+    public void cbcOnSelect(ActionEvent actionEvent) throws SQLException {
+        Boolean ifCountry = cbcComboCountry.getSelectionModel().isEmpty();
+
+        if(ifCountry){
+            cbcTxtDialogue.setText("Please select a country");
+        }else {
+            cbcTxtDialogue.setText("");
+
+            String country = cbcComboCountry.getValue().toString();
+            genCBCTable(ReportsDB.getCustomersbyCountry(country));
         }
     }
 
