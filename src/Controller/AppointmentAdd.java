@@ -127,6 +127,10 @@ public class AppointmentAdd implements Initializable {
         return (title || description || location || contact || type || startDate || startTime || endDate || endTime || customer || user);
     }
 
+    /** Initializes page by setting all comboboxes with appropriate values
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

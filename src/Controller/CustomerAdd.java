@@ -159,6 +159,10 @@ public class CustomerAdd implements Initializable {
         return (name || address || postal || phone || country || division);
     }
 
+    /** Sets country combo with values on initialization
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

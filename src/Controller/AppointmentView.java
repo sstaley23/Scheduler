@@ -289,6 +289,10 @@ public class AppointmentView implements Initializable {
         }
     }
 
+    /** Provides the all table with values on initialization
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

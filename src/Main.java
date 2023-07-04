@@ -4,12 +4,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
-import java.util.Locale;
 
+/** Main class that handles start upt and database connection
+ */
 public class Main extends Application {
 
+    /** Loads loginmenu at start up
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/View/LoginMenu.fxml"));
@@ -18,10 +22,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /** Open connection with database, launch args, and closes connection with database on exit
+     * @param args
+     * @throws SQLException
+     */
     public static void main(String[] args) throws SQLException {
-        /*DELETE below is just for testing translations*/
-        //Locale.setDefault(new Locale("fr"));
         JDBC.openConnection();
         launch(args);
         JDBC.closeConnection();

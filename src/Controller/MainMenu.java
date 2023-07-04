@@ -63,6 +63,10 @@ public class MainMenu implements Initializable {
         stage.show();
     }
 
+    /** Provides an alert when the exit button is clicked and exits program if ok is selected
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void onActionExit(ActionEvent actionEvent) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -73,6 +77,10 @@ public class MainMenu implements Initializable {
 
     }
 
+    /** Provides appointment alerts (or lack there of) on initialization
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

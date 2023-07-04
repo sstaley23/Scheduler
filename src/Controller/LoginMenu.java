@@ -122,6 +122,10 @@ public class LoginMenu implements Initializable {
         outputFile.close();
     }
 
+    /** Initializes screen with zoneID and translates page if user's default is French
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblZoneID.setText(String.valueOf(ZoneId.systemDefault()));

@@ -178,6 +178,10 @@ public class AppointmentEdit implements Initializable {
         return (title || description || location || contact || type || startDate || startTime || endDate || endTime || customer || user);
     }
 
+    /** Initializes combo boxes with appropriate values
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
